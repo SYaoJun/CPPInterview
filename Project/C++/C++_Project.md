@@ -16,6 +16,7 @@ mysql --version
 docker --version
 java --version
 python3 --version
+go version
 ```
 ### ElasticSearch
 - 存储，搜索，可视化数据。
