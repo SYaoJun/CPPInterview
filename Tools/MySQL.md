@@ -36,6 +36,11 @@ select * from department limit 100;
 describe department
 desc department
 ```
+### 设置隔离级别
+```sql
+set global transaction isolation level read committed # 修改隔离级别
+select @@x_isolation  # 查看隔离级别
+```
 ### 常用CRUD
 1. from
 2. where
