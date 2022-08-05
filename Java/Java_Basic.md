@@ -1,3 +1,78 @@
+# Java Basic
+### 异常
+
+- **Throwable**
+    - **Exception**
+        - CheckedException
+        - RuntimeException
+    - **Error**
+
+Checked Exception指在编译阶段Java编译器会检查CheckedException异常，并强制程序捕获和处理此类异常。
+
+RuntimeException及其子类都是unchecked exception。
+
+### 不可查异常
+
+- ArithmeticException 算术异常
+- ClassCastException类转换异常
+- IllegalArgumentException非法参数异常
+- IndexOutOfBoundsException索引越界异常
+- NullPointerException空指针异常
+### 抽象类
+[参考视频](https://www.bilibili.com/video/BV1sZ4y1H7gV?p=185)
+抽象类是对事务的抽象，而接口是对行为的抽象。
+
+1. 抽象类中可以有构造方法，但只供子类调用。
+2. 抽象类中不一定有抽象方法。
+3. 抽象类中非抽象方法可以有函数体。
+4. 抽象方法可以被public, protected和private修饰。
+
+### 接口
+
+[参考视频](https://www.bilibili.com/video/BV1T7411m7Ta?p=182)
+
+1. 成员变量，格式：[public] [static] [final] 数据类型 常量名称 = 初始值；
+
+    - 常量必须进行赋值，一旦赋值不能被修改 。
+    - 常量名称完全大写，用下划线分割。
+
+2. 抽象方法，格式：[public] [abstract] 返回值类型 方法名称(参数列表)；
+
+3. 默认方法(java 8)，格式：[public] default 返回值类型 方法名称(参数列表){方法体}
+
+    - 也可以被覆盖重写
+
+4. 静态方法(java 8)，格式: [public] static 返回值类型 方法名称(参数列表){方法体}
+
+    - 应该通过接口名称进行调用，不能通过实现类对象调用静态方法
+
+    - `MyInterfaceStatic.methodStatic();`
+
+      ```java
+      public interface MyInterfaceStatic {
+          static void methodStatic(){
+              System.out.println("这是接口的静态方法");
+          }
+      }
+      ```
+
+5. 私有方法(java 9), 格式:
+
+    - 普通私有方法：private 返回值类型 方法名称(参数列表){方法体}
+    - 静态私有方法：private static 返回值类型 方法名称(参数列表){方法体}
+    - private方法只有接口自己才能调用，不能被实现类或别人使用。
+
+### 子父类加载顺序
+- 父类静态属性和静态初始化块，按在代码中出现的顺序依次执行。
+- 子类静态属性和静态初始化块，按在代码中出现的顺序依次执行。
+- 父类的实例属性和实例初始化块，按在代码中出现的顺序依次执行。执行父类的构造方法。
+- 子类实例成员和实例初始化块，按在代码中出现的顺序依次执行。执行子类构造方法。
+- 特殊情况：静态，final且值确定是常量，是编译时确定，不会加载类。
+```java
+public final static int  staticData = 4 + new Random().nextInt(10) ; //需要加载类
+public final static int  staticData = 4 ; //不需要加载类，直接去常量池取
+```
+
 ### ArrayList和LinkedList的区别★★★
 
 -   Arraylist内存地址是连续的，底层是数组。随机访问的速度比较快，是常数时间，删除是线性的复杂度。
@@ -185,3 +260,45 @@ IO模型分为：同步阻塞，同步非阻塞，异步阻塞，异步非阻塞
 - AIO异步非阻塞,一个有效请求一个线程，客户端的IO请求都是由OS先完成了再通知服务器应用去启动线程进行处理。
 
 并发量不多时用BIO,并发量比较大使用NIO和AIO或者直接使用netty。
+## comparator和comparable的区别
+
+- comparator比较器，它的名字也已经表明了它的作用：用作比较，它与原有类的逻辑没有关系，只是实现两个类的比较逻辑。
+- comparable可比较的，实现了Comparable接口的类表明自身是可比较的，有了比较才能进行排序。
+- 区别
+    - Comparable接口可以作为实现类的默认排序法，Comparator接口则是一个类的扩展排序工具。
+- 排序工具：
+    - `Collections.sort`
+
+> 个人建议，多用comparator
+
+```java
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Student s = new Student("yaojun",19);
+        List<Student> ss = new ArrayList<>();
+        /*arrayList默认长度是10，2倍扩容。*/
+
+        ss.add(new Student("yaojun", 19));
+        ss.add(new Student("yaojun", 20));
+        Collections.sort(ss, (a, b)->{
+            return b.age - a.age; // 从大到小
+        });
+
+        for (Student student : ss) {
+            System.out.println(student.name + " " + student.age);
+        }
+    }
+}
+
+class Student{
+    String name;
+    int age;
+    Student(String name, int age){
+        this.name = name;
+        this.age = age;
+    }
+}
+
+```

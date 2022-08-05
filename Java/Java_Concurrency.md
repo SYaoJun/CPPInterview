@@ -276,7 +276,51 @@ List<String> list = new Vector<>();
 List<String> list = Collections.synchronizedList(new ArrayList<>());
 List<String> list = new CopyOnWriteArrayList<>();
 ```
+### Future
+```shell
+package com.example.demo.controller;
 
+import java.util.Random;
+import java.util.concurrent.*;
+
+public class FutureTest {
+    public static void main(String[] args) throws ExecutionException, InterruptedException, TimeoutException {
+        ExecutorService exec = Executors.newFixedThreadPool(2);
+        FutureTask<String> future1 = new FutureTask<String>(() -> {
+            Thread.sleep(new Random().nextInt(5000));
+            return "future1 success";
+        });
+
+        FutureTask<String> future2 = new FutureTask<>(() -> {
+            Thread.sleep(new Random().nextInt(10000));
+            return "future2 success";
+        });
+
+        // 两个任务交给别人去执行
+        exec.execute(future1);
+        exec.execute(future2);
+
+        // 我干我自己的事
+        Thread.sleep(new Random().nextInt(1000));
+        System.out.println("myself success");
+
+        /** 先问,而且不停的问 */
+        while(true){
+            if(future1.isDone()){
+                System.out.println(future1.get());
+                break;
+            }
+            Thread.sleep(new Random().nextInt(1000));
+        }
+
+        // 我自己的事干完了,我需要你们的返回结果了
+//        System.out.println(future1.get(2, TimeUnit.SECONDS));// 这个时候可能future1的数据还没有准备好，阻塞等待
+//        System.out.println(future2.get(6, TimeUnit.SECONDS));// 这个时候可能future2的数据还没有准备好，阻塞等待
+        exec.shutdown();
+    }
+}
+
+```
 ### HashSet线程不安全
 
 线程安全版

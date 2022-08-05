@@ -87,3 +87,28 @@ exactly once = 幂等性 + at least once
 启用幂等性，只需要将Producer的参数中enable.idompotence设置为true。
 
 开启幂等性的producer在初始化的时候会被分配一个PID，发往同一个partition的消息会附带sequence number。而Broker端会对<PID，partition，seqNumber>做缓存，当具有相同主键的消息提交时，Broker只会持久化一条。
+## kafka
+
+- broker
+    - topic 逻辑概念
+        - patition 物理概念
+        - log
+            - segment
+        - 每个分区从0到n维护一个offset
+
+kafka采用了分片和索引机制
+
+副本数
+leader
+follower
+
+读写速度
+.index
+.log
+快速定位到数据
+
+
+## 
+
+
+

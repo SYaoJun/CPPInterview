@@ -1,11 +1,14 @@
 # Python
+## 保留小数
+```shell
+print("{:.2f} hello world!".format(3.1415))
+```
 ## 可变参数
-
+```python
 *args 可变元组参数
-
 **kwargs 可变字典参数
-
-如果在接收的內部还需要将这些参数传递到其他函数需要拆包，即加上星号*args **kwargs
+```
+- 如果在接收的內部还需要将这些参数传递到其他函数需要拆包，即加上星号*args **kwargs
 
 ## python 2.x 和 3.x的区别
 
