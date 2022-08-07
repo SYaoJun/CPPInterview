@@ -1,20 +1,23 @@
 # Linux
 ## Linux命令
-1.  find命令，用来查找文件。常用的按照名字查找-name，按照文件类型查找-type，linux常用的文件类型有七种，普通文件，目录文件，管道，套接字，软链接，块设备，字符设备。还可以按照文件大小查询-size。
-2.  grep命令，按照文件内容来查找。使用规则是grep option pattern file
-3.  ps aux
-4.  curl命令 访问一个网页
-6.  df查看磁盘大小
-7.  du查看目录大小
-8.  free -h 查看内存大小和使用情况
-9.  top查看系统的实时负载
-10.  netstat -ta 查看监听的TCP
-12.  stat 获取文件属性
-11.  file 查看文件类型
-12.  sudo iptables -L 查看防火墙状态
-13.  sudo vim etc/sysctl.conf 查看TCP属性
+1. find命令，用来查找文件。常用的按照名字查找-name，按照文件类型查找-type，linux常用的文件类型有七种，普通文件，目录文件，管道，套接字，软链接，块设备，字符设备。还可以按照文件大小查询-size。
+2. grep命令，按照文件内容来查找。使用规则是grep option pattern file
+3. ps aux
+4. curl命令 访问一个网页
+5. df查看磁盘大小
+6. du查看目录大小
+7. free -h 查看内存大小和使用情况
+8. top查看系统的实时负载
+9. netstat -ta 查看监听的TCP
+10. stat 获取文件属性
+11. file 查看文件类型
+12. sudo iptables -L 查看防火墙状态
+13. sudo vim etc/sysctl.conf 查看TCP属性
+
 ### 常用命令
-```shell
+```shell 
+# 以树形结构查看目录
+tree -L 2
 cat hello.cpp
 tail -1000f logger.log
 mkdir -r hello/world
