@@ -1,6 +1,6 @@
 ## Docker
-- 容器技术
-- 部署工具
+- [Docker官网](https://www.docker.com/)
+- [Docker hub官网](https://hub.docker.com/)
 ### 概念
 1. 镜像
 2. 容器
@@ -8,6 +8,7 @@
 ### 术语
 - 一个镜像可以对应多个不同的容器
 ### 操作命令
+- [菜鸟教程：常用软件的安装命令](https://www.runoob.com/docker/docker-install-ubuntu.html)
 - 点击软件Docker，进入启动界面。然后再命令行打印版本号，检测软件是否正常启动。
 ```shell
 docker --version
@@ -49,4 +50,8 @@ docker rmi hello:1.0
 docker build -t ems
 ```
 ### 搭建集群docker-compose.yml
-
+## ubuntu
+```shell
+docker run -itd --name ubuntu-test ubuntu
+docker exec -it ubuntu-test /bin/sh
+```
