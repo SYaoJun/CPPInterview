@@ -19,6 +19,9 @@ drop table department
 create table user(id int primary key, name varchar(20));
 # 自增
 create table user(id int primary key auto_increment, name varchar(20));
+//重命名一张表
+rename table old_table to new_table;
+alter table odl_table rename new_table;
 ```
 ### 查看SQL
 - 注意有分号

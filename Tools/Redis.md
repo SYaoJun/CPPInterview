@@ -178,3 +178,340 @@ Redis 通过 MULTI、EXEC、WATCH 等命令来实现事务(transaction)功能。
 ## redis
 
 是C语言编写的基于**内存可持久化**的key-value内存数据库，使用的是**epoll单线程模型**。常用的数据结构有set， list，string, hash, sorted set。
+## redis的考点
+
+- 五种数据结构：**string hash list set zset**
+
+- 三种特殊数据类型：geo/hyperloglog/bitmap
+- 持久化：AOF日志和RDB快照
+- 事务：multi开启事务 exec执行事务 watch监控字段
+
+- 过期删除：**expire key ttl   定期删除(100ms随机) + 惰性删除**
+- 内存淘汰策略：LUR、LFU、Random
+- 集群：主从同步，哨兵(自动选举master)
+
+- 解决方案：缓存穿透/击穿/雪崩
+
+- **分布式锁setnx：不存在设置成功，相当于拿到锁。**
+
+## string
+
+- string的底层采用简单动态字符串SDS。
+
+```html
+set name longwang
+get name
+mset age 20 address shanghai
+```
+
+## hash
+
+- hash底层实现为一个字典dict。
+- 当数据量比较小或者单个元素比较小时，底层用ziplist存储。
+
+```html
+hset user name chuangwang
+hget user name
+hmset user age 20 address shanghai
+hmget user age address
+hgetall user
+hdel user age address
+```
+
+## list
+
+- list的底层实现采用quicklist和ziplist。
+- quicklist是双向链表。
+- ziplist是一种更紧凑，更节省内存空间的链表。
+
+```html
+lpush students longwang haoge
+rpush students bingge
+lrange students 0 -1 查看全部
+llen 查看长度
+lrem student 1 haoge //移除左边的
+```
+
+## set
+
+- set为无序的，自动去重的数据类型。
+- set底层为一个value为null的字典dict。
+
+```html
+sadd letters aaa bbb ccc ddd
+scard letters
+srem letters aaa 移除
+```
+
+## zset
+
+- zset有序，自动去重的数据类型。
+- zset底层实现为字典dict+跳表skiplist。
+- 当数据比较少时，用ziplist存储。
+
+```html
+zadd users 10 zhangsan 8 lisi
+zcard users 总数量
+zrange users 0 5 查看
+zrem users zhangsan 移除
+```
+
+## 失效时间
+
+```html
+set code test ex 30 秒
+set code test px 30000 毫秒
+ttl code 查看剩余失效时间 -1代表永不失效
+expire code 20 分批次设置失效20秒后
+pttl code 查看剩余失效毫秒
+set code test nx 不存在时设置成功
+set code test xx 存在时设置成功
+```
+
+## 跳表
+
+- 多层索引的有序链表。
+- 时间复杂度logn
+- 从顶层的头结点开始查找，每次查找失败时就向下移动一层。
+
+## RBD和AOF
+
+- RBD有数据丢失的风险
+- AOF实时记录命令，数据不丢失，数据占用空间更大
+
+## redis的核心
+
+- 五种数据结构
+- 失效时间
+- 持久化
+- 主从
+- 哨兵
+- 事务
+
+## redis的优点
+
+- 数据结构丰富
+- 数据持久化
+- 支持事务
+- 分布式锁
+- 支持主从复制
+- 读写性能优异11W读，8W写
+
+## 缺点
+
+- 数据库容量受物理内存的限制，不能用作海量数据的高性能读写。
+
+## 单线程的好处
+
+- **避免多线程的竞争条件和上下文切换**
+- 不用考虑各种锁的问题
+- 使用IO多路复用，非阻塞IO
+
+## Redis的持久化方式
+
+- RDB 快照
+- AOF 追加更改
+
+## redis的优势
+
+- 缓存
+- 分布式锁
+- 支持事务
+- 持久化
+- lua脚本
+- lru事件驱动
+- 多集群方案。
+
+## 分布式锁
+
+分布式锁实现原理：多进程可见，互斥，可重入，高并发，高可用。
+常见的分布式锁实现方案：基于数据库实现，基于缓存实现，基于zookeeper实现
+原子性：要么同时成功，要么同时失败。
+redis单条命令是保证原子性的，但是redis的事务是不保证原子性。
+**事务的本质：一组命令的集合。**
+redis事务没有隔离级别的概念，一个事务的所有命令都会被序列化，在事务执行过程中，按照顺序执行。所有的命令在事务中，并没有直接执行，只有发起执行命令的时候才执行，Exec。
+
+## redis事务
+
+- 监控字段watch
+
+- 开启事务multi
+
+- 命令入队
+
+- 执行事务exec
+
+
+**必须在事务开启之前watch，也就是不能再事务中间开启监控。**
+对key添加监视锁watch
+分布式锁
+setnx lock_key value
+使用setnx设置一个公共锁，利用setnx命令的返回值特征，**有值则返回设置失败0，无值则返回设置成功1。**
+
+- 成功。拥有控制权，执行下一步业务，用完后del释放锁。
+
+- 失败。不具有控制权，排队等待。
+
+
+**如果释放锁之前宕机，就会导致死锁，可以设置锁的过期时间来解决。**
+**set num 666 nx ex 100**
+误删锁问题：如何得知获取的锁是否是自己的锁。**设置锁的名字，删除之前先对比。**
+重入性问题：获取锁之后，执行代码的过程中，尝试再次获取锁。记录锁的名称，比较一下，如果相同就继续让执行，再释放锁时记录调用层数，在最外层释放锁。使用hash来实现。
+hset user name jack
+hset user age 21
+**取消或放弃事务discard**
+一旦事务执行成功后，监控自动取消掉。如果想手动关闭监控使用unwatch。
+exec返回nil表示事务执行失败
+redis可以实现乐观锁
+乐观锁：不加锁，更新数据时才去判断，获取version，然后比较version，监控某个值，执行事务之前，另一个线程修改了这个值，就会导致事务执行失败。
+悲观锁：总是加锁。
+事务执行中的错误：
+
+- 语法错误：exec时，所有事务都不会执行。
+
+- 运行时错误：比如对一个字符串自增，incr str 其他事务正常执行，只有出错的命令执行失败。
+
+## RDB快照
+
+默认
+优点：适合大规模的数据恢复，对数据的完整性要求不高。
+
+- 性能好。**fork子进程来完成写操作。**
+- 恢复快。直接解析RDB二进制文件。
+
+缺点：**最后一次持久化的数据可能丢失，fork子进程占用内存空间。**
+
+- 有数据丢失的风险。
+- 主程序有大量写入操作时，会触发copy on write，此时父子进程各持有独立的一份数据，大量写入会产生大量的分页错误。
+
+触发机制
+
+- sava配置中的条件
+
+- flushall
+
+- 退出redis
+
+
+恢复dump.rdb文件，只需将rdb文件放入redis启动目录下
+
+## AOF日志
+
+AOF日志模式：**将所有命令都记录下来，恢复的时候把这个文件全部再执行一遍。**
+appendonly.aof
+默认是不开启的，手动开启`appendonly yes`
+默认每秒修改存储一次，重启后生效。
+修复aof文件`redis-check-aof --fix appendonly.aof`
+优点：每次修改都同步，文件的完整性更好。每秒同步一次，可能会丢失一秒的数据。
+
+- 数据安全，无丢失。
+
+缺点：aof文件大小远远大于rdb,修复速度也比rdb慢。
+
+- 启动效率低。
+
+默认情况下，每台redis服务器都是主节点
+只需要配置从机`saveof 127.0.0.1 6379`
+
+## 混合持久化
+
+- 兼顾了RDB的速度和AOF的安全性。
+
+## 缓存穿透
+
+缓存穿透(查不到)：缓存没有命中，直接向持久层数据库查询。
+解决方案：布隆过滤器，缓存空对象。
+布隆过滤器是一种数据结构，对所有可能查询的参数以hash存储，在控制层先进行校验，不符合则丢弃，从而避免了对底层存储系统的压力。
+
+## 缓存击穿
+
+缓存击穿(量太大，缓存过期)：高并发的热点key在过期的瞬间，持续的高并发直接请求数据库。
+解决方案：设置热点数据永不过期，加互斥锁，设二级缓存，保证过期时间不集中。
+使用分布式锁，保证对于每个key同时只有一个线程去查询后端服务，其他线程没有获得分布式锁的权限，因此只需要等待即可。这种方式将高并发的压力转移到了分布式锁，因此对分布式锁的考验很大。
+
+## 缓存雪崩
+
+缓存雪崩：是指在某一时间段，缓存集中过期失效，redis宕机/断网。
+解决方案：搭建集群，**限流降级，数据预热**（把可能访问的数据预先加载到缓存）。
+
+## SDS简单动态字符串
+
+Redis使用SDS(simple dynamic string)简单动态字符串作为字符串表示
+
+- 常数复杂度获取字符串长度。
+
+- **杜绝缓冲区溢出。**
+
+- 减少修改字符串长度时所需的内存重分配次数。
+
+- 二进制安全。
+
+- 兼容部分C字符串函数
+
+
+**Redis的字典使用哈希表作为底层实现**
+**Redis使用跳跃表作为有序集合键的底层实现之一**
+Redis只在两个地方用到了跳跃表，一个是实现有序集合键，另一个是在集群节点中用作内部数据结构
+
+## redis操作
+
+brew services start redis 启动并前台运行
+brew services stop redis 停止服务
+redis-server /usr/local/etc/redis.conf 启动并后台运行
+mysql -uroot 本地登录
+brew services start mysql 前台
+mysql.server start 后台
+
+## redis过期时间
+
+1. 定期删除：redis默认是每隔 100ms 就**随机抽取**一些设置了过期时间的key，检查其是否过期，如果过期就删除。
+
+1. 惰性删除：查询的时候再删。
+
+## redis内存淘汰机制
+
+1. Volatile-lru
+
+1. volatile-ttl
+
+1. volatile-random
+
+1. allkeys-lru
+
+1. allkeys-random
+
+1. no-eviction
+
+## redis持久化机制
+
+Redis的一种持久化方式叫快照（snapshotting，RDB）
+另一种方式是只追加文件（append-only file,AOF）
+
+RDB：从内存写入磁盘
+AOF：记录操作的步骤
+
+1. Redis可以通过创建快照来获得存储在内存里面的数据在某个时间点上的副本。快照持久化是Redis默认采用的持久化方式。
+
+1. 与快照持久化相比，AOF持久化 的实时性更好，因此已成为主流的持久化方案。
+
+
+**Redis 4.0 开始支持 RDB 和 AOF 的混合持久化（默认关闭，可以通过配置项 `aof-use-rdb-preamble` 开启）**。
+
+## 缓存雪崩
+
+缓存同一时间大面积的失效，所以，后面的请求都会落到数据库上，造成数据库短时间内承受大量请求而崩掉。
+解决办法：
+
+- 事前：尽量保证整个 redis 集群的高可用性，发现机器宕机尽快补上。选择合适的内存淘汰策略。
+
+- 事中：本地ehcache缓存 + hystrix限流&降级，避免MySQL崩掉
+
+- 事后：利用 redis 持久化机制保存的数据尽快恢复缓存
+
+## 缓存穿透
+
+一般是黑客故意去请求缓存中不存在的数据，导致所有的请求都落到数据库上，造成数据库短时间内承受大量请求而崩掉。
+解决办法： 有很多种方法可以有效地解决缓存穿透问题，最常见的则是采用**布隆过滤器**，将所有可能存在的数据哈希到一个足够大的bitmap中，一个一定不存在的数据会被 这个bitmap拦截掉，从而避免了对底层存储系统的查询压力。另外也有一个更为简单粗暴的方法（我们采用的就是这种），如果一个查询返回的数据为空（不管是数 据不存在，还是系统故障），我们仍然把这个空结果进行缓存，但它的过期时间会很短，最长不超过五分钟。
+
+
+
