@@ -1,12 +1,12 @@
 # Basic C++
-
+> 整理的面试问题仅做参考，最好能梳理一份属于自己的面试知识清单。
 ### 推荐书籍
 
 -   《C++ primer》 第五版
 -   《后台开发》 徐晓鑫
--   《linux高性能服务器编程》 游双
--   《redis设计与实现》黄健宏
--   《muduo库》陈硕
+-   《Linux高性能服务器编程》 游双
+-   《Redis设计与实现》黄健宏
+-   《Muduo库》陈硕
 
 ### static
 
@@ -16,8 +16,6 @@ static的使用可以分为两类，一类是用在**普通变量和函数**上�
 2.  静态普通函数，只在当前文件中可见，其他文件中定义同名函数不会发生冲突。
 3.  static用在类中，首先是静态成员变量，**在类中声明，类外初始化。**所有对象共享一份数据。
 4.  然后是静态成员函数：所有对象共享同一个函数，静态成员函数只能访问静态成员变量。
-
-
 
 ### 多态
 
@@ -90,13 +88,6 @@ malloc和new都是在堆上开辟内存，进行动态的管理。
 
 
 
-## 符号表
-
-每个目标文件除了拥有自己的数据和二进制代码外，还提供了3个表：
-
-1.  未解决符号表：提供了所有在该编译单元里引用但是定义并不是在本编译单元的符号及其出现的地址。【引用无定义】将extern声明的变量置入未解决符号表。【外部链接】
-2.  导出符号表：提供了本编译单元具有定义，并且愿意提供给其他单元使用的符号及地址。【有定义肯让外用】普通变量及其函数被置入导出符号表。
-3.  地址重定向表：提供了本编译单元所有对自身地址的引用的记录。**static声明的全局变量放入地址重定位表中**。【内部链接】
 
 ## 指针常量
 
@@ -106,7 +97,7 @@ int* const p = &a
 
 **指针常量必须初始化**，一旦初始化完成，就不能再修改它的值，即指针的指向不可变。
 
-引用的本质是指针常量
+- 引用的本质是指针常量
 
 ## 声明和定义的区别
 
@@ -116,8 +107,8 @@ int* const p = &a
 
 ## C和C++的区别
 
-1.  设计思想上： C是面向过程的结构化语言，CPP是面向对象的语言 
-2.  语法上： CPP具有三大特性，**封装继承多态** CPP相对于C增加了许多类型安全的功能，比如四种强制类型转换 CPP支持范式编程，如模板类，函数模板等
+1.  设计思想上： C是面向过程的结构化语言，CPP是面向对象的语言。 
+2.  语法上： CPP具有三大特性，**封装继承多态** CPP相对于C增加了许多类型安全的功能，比如四种强制类型转换 CPP支持范式编程，如模板类，函数模板等。
 
 ## struct和class的区别
 
@@ -364,34 +355,10 @@ int main(){
 6.  错误返回码errno
 
 ## 信号
-
-信号是一种不精确的通信方式。常用的信号有15号信号，杀死进程 29号进程 11号段错误
-
-## http和https的区别
-
-https是安全版的http协议。
-
-## get和post的区别
-
-get用来获取资源，post用来创建资源。
-
-get将数据放在url地址栏中，使用问号与url分割，数据间用取地址符分割。post将数据放在请求体中。
-
-安全性上get放在url容易暴露隐私信息，而post放在请求体中可以适当的避免。
-
-get在传输的数据受url地址栏的限制，post不受这种限制
-
-get的操作是幂等的，多次操作产生的影响相同，而post是非幂等的
-
-## B树和B+树的区别
-
-B树是多叉平衡树，**M阶的B树，每个节点最多有M-1个关键字，**每个节点的关键字都按照从小到大的顺序排列，因此查询时可以使用二分查找法。
-
-**B树中所有叶子节点都位于同一层，每个节点都存有索引和数据。**
-
-**B树的优点在于查询单个数据时，由于每个key都存有对应的date，查询到后可以直接取回。**
-
-B+树非叶子节点只存索引不存数据，每个叶子节点增加一个指向相邻接叶子节点的指针，所有的节点都存在叶子节点。B+树的优点在于范围查询时，可以利用相邻的指针获得指定范围内的数据。
+- 信号是一种不精确的通信方式。常用的信号有：
+1. 15号信号，杀死进程 
+2. 29号进程 
+3. 11号段错误
 
 ## 网络拥塞
 
@@ -400,11 +367,7 @@ B+树非叶子节点只存索引不存数据，每个叶子节点增加一个指
 3.  快速重传
 4.  快恢复
 
-## TCP和udp的区别
 
-tcp面向连接的可靠的流式协议，具有超时重传和确认等机制。
-
-udp面向无连接的报文协议，发出去就不管了，收则全收，丢则全丢。
 
 ## 智能指针
 
@@ -907,22 +870,7 @@ int main(){
 }
 ```
 
-## linux常用命令
 
--   awk 参数 脚本 文件
-
-    ```shell
-     awk '{print  NR NF "\t"  $0, $1 }'
-    ```
-
--   wc -c 字符数 -l 行数 -w 单词数
-
--   sort
-
-    ```shell
-    sort -r coin.txt 逆序
-    sort -n coin.txt 数值
-    ```
 
 
 ## partition函数
@@ -1013,72 +961,11 @@ int main(){
 }
 ```
 
-## tuple函数
-
-优势在于传输一次性的一组数据，如果要大量使用，实际上不及结构体清晰明了。
-
-可以将tuple用在map中作为多索引值。可以用来比较两个tuple类型的字典序大小。
-
-**tuple可以存引用**
-
-```c
-#include <iostream>
-#include <algorithm>
-#include <functional>
-#include <queue>
-#include <tuple>
-#include <map>
-#include <string>
-using namespace std;
-
-int main(){
-    //usage
-    std::tuple<int, string, char> t(32, "Penny", 'A');
-    //output
-    cout<<get<0>(t)<<endl; //32
-    get<1>(t) = "Alex"; //reference
-    //assignment 
-    tuple<int, string, char> t2;
-    t2 = tuple<int, string, char>(24, "Alex", 'B');
-    t2 = make_tuple(17, "Jun", 'C');
-    //tuple can store reference 
-    string st = "In for a penny";
-    tupel<string&> t3(st);
-    t3 = make_tuple(ref(st));
-    int x;
-    string y;
-    char z;
-    make_tuple(ref(x), ref(y), ref(z)) = t2;
-    tie(x, y, z) = t2; // doing the same thing
-    tie(x, std::ignore, z) = t2;
-    auto t4 = tuple_cat(t2, t3); //concatenate two string
-    //tuple traits
-    cout<<tuple_size<decltype(t4)>::value<<endl;
-    tuple_element<1, decltype(t4)>::type d;
-    cout<<d<<endl;
-    //Advantage
-    //comparison of tuples 
-    tuple<int, int , int > time1, time2; //hours mintues seconds
-    if(time1 > time2) cout<<"time1 is a later time"<<endl;
-    //multi index map
-    map<tuple<int, char, float>, string> mp;
-    mp[make_tuple(18, 'A', 3.14)] = "Curiosity kills the cat";
-    //fast change value
-    int a, b, c;
-    tie(c, b, a) = make_tuple(a, b, c);
-    return 0;
-}
-```
 
 
 
-## 一致性哈希
 
-通过是为了解决传统哈希算法上的不足而提出来的。主要是增减机器是，传统哈希算法对于数据迁移的成本很高。一致性哈希也是使用取模的思想，只不过将哈希值空间组织成一个圆环，然后每个机器顺时针负责一段数据的存储，当增加机器或者减少机器时，把对应的数据迁移到附近的机器上就行，其他机器不用发生改动。但是存在一个不足，当机器数量比较少时，无法做到在环上均匀分布。于是引入虚拟节点，每个物理机器有相同数量的虚拟节点，通过虚拟节点去寻找位置，然后映射到物理机上。
 
-## 海量数据问题
-
-小根堆+归并
 
 ## 生成随机数
 

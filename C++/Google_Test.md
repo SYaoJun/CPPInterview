@@ -27,7 +27,7 @@
 5. 查看循环中的变量 i
 6. 单步运行n
 ## 实践篇
-## MAC安装gtest
+## gtest导入教程
 ```shell
 # 克隆仓库
 git clone https://github.com/google/googletest.git

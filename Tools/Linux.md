@@ -53,6 +53,22 @@ tar -zcvf 压缩文件夹名 .tar.gz 被压缩文件名
 # 解压
 tar -zxvf 压缩文件名.tar.gz
 ```
+## linux常用命令
+
+-   awk 参数 脚本 文件
+
+    ```shell
+     awk '{print  NR NF "\t"  $0, $1 }'
+    ```
+
+-   wc -c 字符数 -l 行数 -w 单词数
+
+-   sort
+
+    ```shell
+    sort -r coin.txt 逆序
+    sort -n coin.txt 数值
+    ```
 ### Aarch64和x86_64
 - ARM和Intel：两家CPU供应商，ARM设计了Aarch64，intel设计了x86_64。
 - 都是CPU的指令集架构
