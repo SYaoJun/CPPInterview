@@ -1,17 +1,17 @@
 # Java Basic
 ### 异常
 
-- **Throwable**
-    - **Exception**
-        - CheckedException
-        - RuntimeException
-    - **Error**
+- throwable
+    - exception
+        - checked exception
+        - runtime exception
+    - error
 
-Checked Exception指在编译阶段Java编译器会检查CheckedException异常，并强制程序捕获和处理此类异常。
+- checked exception指在编译阶段Java编译器会检查CheckedException异常，并强制程序捕获和处理此类异常。
 
-RuntimeException及其子类都是unchecked exception。
+- Runtime Exception及其子类都是unchecked exception。
 
-### 不可查异常
+### unchecked exception
 
 - ArithmeticException 算术异常
 - ClassCastException类转换异常
@@ -73,7 +73,7 @@ public final static int  staticData = 4 + new Random().nextInt(10) ; //需要加
 public final static int  staticData = 4 ; //不需要加载类，直接去常量池取
 ```
 
-### ArrayList和LinkedList的区别★★★
+### ArrayList和LinkedList的区别
 
 -   Arraylist内存地址是连续的，底层是数组。随机访问的速度比较快，是常数时间，删除是线性的复杂度。
 
@@ -81,13 +81,13 @@ public final static int  staticData = 4 ; //不需要加载类，直接去常量
 
 
 
-### HashMap原理★★★
+### HashMap原理
 
-HashMap数组+链表或红黑树存储数据，**线程不安全**
+- HashMap数组和链表或红黑树存储数据，线程不安全
 
-**数组容量默认时16，负载因子默认是0.75**
+- 数组容量默认时16，负载因子默认是0.75
 
-Java 8以后，链表中的元素超过8后，hashmap会将链表结构转换为红黑树的结构提高查询效率。
+- Java 8以后，链表中的元素超过8后，hashmap会将链表结构转换为红黑树的结构提高查询效率。
 
 线程安全版：Hashtable和ConcurrentHashMap
 
@@ -101,7 +101,7 @@ put，get和resize的过程？
 
 
 
-### Java的基本类型★★
+### Java的基本类型
 
 java有8种基本类型
 
@@ -119,11 +119,11 @@ java有8种基本类型
 
 - Char 2字节
 
-- Byte 1字节  **这个类型容易被忘**
+- Byte 1字节  
 
 
 
-### 什么是反射？★★
+### 反射机制
 
 反射机制：在运行时动态地创建类的对象，获取一个类的所有成员变量和方法。
 
@@ -142,7 +142,7 @@ java有8种基本类型
 
 
 
-### 多态★★
+### 多态
 
 父类引用指向子类对象
 
