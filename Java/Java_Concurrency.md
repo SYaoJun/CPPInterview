@@ -34,13 +34,11 @@
 
 ### Java的BIO，NIO和AIO★★
 
-BIO：blocking IO 同步阻塞I/O模式，数据的读取写入必须阻塞在一个线程内等待其完成。
+- BIO：blocking IO 同步阻塞I/O模式，数据的读取写入必须阻塞在一个线程内等待其完成。
 
-NIO：non-blocking IO 是一种同步非阻塞的I/O模型，在Java 1.4 中引入了NIO框架，对应 java.nio 包，提供了 Channel , Selector，Buffer等抽象。 它支持面向缓冲的，基于通道的I/O操作方法。
+- NIO：non-blocking IO 是一种同步非阻塞的I/O模型，在Java 1.4 中引入了NIO框架，对应 java.nio 包，提供了 Channel , Selector，Buffer等抽象。 它支持面向缓冲的，基于通道的I/O操作方法。
 
-AIO：asynchronous IO 它是异步非阻塞的IO模型。 异步IO 是基于事件和回调机制实现的，也就是应用操作之后会直接返回，不会堵塞在那里，当后台处理完成，操作系统会通知相应的线程进行后续的操作。
-
-
+- AIO：asynchronous IO 它是异步非阻塞的IO模型。 异步IO 是基于事件和回调机制实现的，也就是应用操作之后会直接返回，不会堵塞在那里，当后台处理完成，操作系统会通知相应的线程进行后续的操作。
 
 ### 线程的状态★★
 
@@ -51,9 +49,7 @@ AIO：asynchronous IO 它是异步非阻塞的IO模型。 异步IO 是基于事�
 - Timed_waiting
 - Terminated
 
-
-
-### Volatile★★★
+### volatile
 
 - 保证可见性
 - 不保证原子性
@@ -153,7 +149,7 @@ new ThreadPoolExecutor(1, 1,0L, TimeUnit.MILLISECONDS,new LinkedBlockingQueue<Ru
 
 
 
-### ThreadLocal原理★★★
+### ThreadLocal
 
 作用：提供线程内的局部变量，不同的线程之间不会相互干扰，这种变量在线程的生命周期内起作用，减少同一个线程内多个函数或组件之间一些公共变量传递的复杂性。
 
@@ -167,7 +163,7 @@ ThreadLocal如何解决内存泄漏问题？每次使用完ThreadLocal，都调�
 
 
 
-### AQS同步器★★
+### AQS同步器
 
 同步器是实现Lock锁的关键。许多同步类的实现都依赖于AQS，如Reentrantlock, Semaphore, CountDownLatch
 
@@ -212,7 +208,7 @@ CAS: Compare and Set 比较交换
 
 
 
-### Fork/Join★
+### Fork/Join
 
 Fork/Join框架是Java 7提供的一个用于并行执行任务的框架，是一个把大任务分割成若干个小任务，最终汇总每个小任务结果得到大任务结果的框架。
 
@@ -220,7 +216,7 @@ Fork/Join框架是Java 7提供的一个用于并行执行任务的框架，是�
 
 
 
-### happens-before★
+### happens-before
 
 - as-if-serial语义保证单线程内程序的执行结果不改变
 - happens-before关系保证正确同步的多线程程序的执行结果不改变
@@ -231,7 +227,7 @@ as-if-serial语义和happens-before这样做的目的，都是为了在不改变
 
 
 
-### 四种引用★
+### 四种引用
 
 - 强引用：把一个对象赋值给一个引用变量时，这个引用变量就是强引用。有强引用的对象一定为可达性状态，所以不会被垃圾回收机制回收。
 - 软引用：如果一个对象只有软引用，则在系统内存空间不足时该对象将被回收
@@ -240,7 +236,7 @@ as-if-serial语义和happens-before这样做的目的，都是为了在不改变
 
 
 
-### wait和sleep的区别★
+### wait和sleep
 
 1. 来自不同的类。wait来自object； sleep来自thread。
 2. 关于锁的释放。wait会释放锁，sleep不会释放。
@@ -277,7 +273,7 @@ List<String> list = Collections.synchronizedList(new ArrayList<>());
 List<String> list = new CopyOnWriteArrayList<>();
 ```
 ### Future
-```shell
+```
 package com.example.demo.controller;
 
 import java.util.Random;
