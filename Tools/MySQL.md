@@ -53,3 +53,10 @@ select @@x_isolation  # 查看隔离级别
 6. limit
 7. select
 - 上述是sql语句关键字的执行顺序。
+### 索引
+```shell
+# 查看索引
+SHOW INDEX FROM student FROM test;
+# 创建索引,联合索引
+create index id_phone_idx on department(id, phone);
+```
