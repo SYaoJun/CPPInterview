@@ -255,7 +255,7 @@ mysql.server start 后台
 
 - string的底层采用简单动态字符串SDS。
 
-```html
+```shell
 set name longwang
 get name
 mset age 20 address shanghai
@@ -266,7 +266,7 @@ mset age 20 address shanghai
 - hash底层实现为一个字典dict。
 - 当数据量比较小或者单个元素比较小时，底层用ziplist存储。
 
-```html
+```shell
 hset user name chuangwang
 hget user name
 hmset user age 20 address shanghai
@@ -281,7 +281,7 @@ hdel user age address
 - quicklist是双向链表。
 - ziplist是一种更紧凑，更节省内存空间的链表。
 
-```html
+```shell
 lpush students longwang haoge
 rpush students bingge
 lrange students 0 -1 查看全部
@@ -294,7 +294,7 @@ lrem student 1 haoge //移除左边的
 - set为无序的，自动去重的数据类型。
 - set底层为一个value为null的字典dict。
 
-```html
+```shell
 sadd letters aaa bbb ccc ddd
 scard letters
 srem letters aaa 移除
@@ -306,7 +306,7 @@ srem letters aaa 移除
 - zset底层实现为字典dict+跳表skiplist。
 - 当数据比较少时，用ziplist存储。
 
-```html
+```shell
 zadd users 10 zhangsan 8 lisi
 zcard users 总数量
 zrange users 0 5 查看
@@ -315,7 +315,7 @@ zrem users zhangsan 移除
 
 ### 失效时间
 
-```html
+```shell
 set code test ex 30 秒
 set code test px 30000 毫秒
 ttl code 查看剩余失效时间 -1代表永不失效

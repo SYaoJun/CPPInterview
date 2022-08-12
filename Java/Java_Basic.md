@@ -1,4 +1,31 @@
 # Java Basic
+### HashMap原理
+- HashMap数组和链表或红黑树存储数据，线程不安全
+
+1. 数组容量默认时16，负载因子默认是0.75
+2. Java 8以后，链表中的元素超过8后，hashmap会将链表结构转换为红黑树的结构提高查询效率。
+
+- put方法
+    1. 通过哈希函数获得hashKey。
+        - 哈希函数的实现：
+          1. key == null，则hashKey=0
+          2. key != null，则key.hashCode ^ (key.hashCode >>> 16) 逻辑右移，将高16位移到低16位
+        - 使用异或的原因：异或能更好的保留高16位和低16位的特征，或|会向1靠近，与&会向0靠近。
+    2. 元素存取位置
+        - hashKey & (n - 1) ：其中n是2的幂次，位运算比取余速度更快。
+- resize方法
+    - 二倍扩容
+### ConcurrentHashMap
+- 线程安全：Hashtable和ConcurrentHashMap
+
+- Hashtable并发性不如ConcurrentHashMap，Hashtable全部方法都使用了Synchronized锁来保证并发冲突。
+
+- CHM原理：ConcurrentHashMap分段锁实现并发操作，锁的粒度更小。
+
+- ConcurrentHashMap由多个segment组成，segment的数量也是锁的并发度，每个segment均继承自Reentrantlock并单独加锁，所以每次进行加锁操作时锁住的都是一个segment，这样只要保证每个segment都是线程安全的，也就实现了全局的线程安全。
+- 哈希函数为什么要加个与操作呢？
+  - `(h ^ (h >>> 16)) & HASH_BITS`
+- 使用CAS的方式获取每个table elements
 ### 异常
 
 - throwable
@@ -20,7 +47,7 @@
 - NullPointerException空指针异常
 ### 抽象类
 [参考视频](https://www.bilibili.com/video/BV1sZ4y1H7gV?p=185)
-抽象类是对事务的抽象，而接口是对行为的抽象。
+- 抽象类是对事物的抽象，而接口是对行为的抽象。
 
 1. 抽象类中可以有构造方法，但只供子类调用。
 2. 抽象类中不一定有抽象方法。
@@ -33,14 +60,14 @@
 
 1. 成员变量，格式：[public] [static] [final] 数据类型 常量名称 = 初始值；
 
-    - 常量必须进行赋值，一旦赋值不能被修改 。
+    - 常量必须进行赋值，一旦赋值不能被修改。
     - 常量名称完全大写，用下划线分割。
 
 2. 抽象方法，格式：[public] [abstract] 返回值类型 方法名称(参数列表)；
 
 3. 默认方法(java 8)，格式：[public] default 返回值类型 方法名称(参数列表){方法体}
 
-    - 也可以被覆盖重写
+    - 也可以被覆盖重写（提供这种访问方式的目的是什么呢？）
 
 4. 静态方法(java 8)，格式: [public] static 返回值类型 方法名称(参数列表){方法体}
 
@@ -78,28 +105,6 @@ public final static int  staticData = 4 ; //不需要加载类，直接去常量
 -   Arraylist内存地址是连续的，底层是数组。随机访问的速度比较快，是常数时间，删除是线性的复杂度。
 
 -   LinkedList内存地址是不连续的，是单链表。随机访问比较差，是线性的，插入删除比较快是常数时间。
-
-
-
-### HashMap原理
-
-- HashMap数组和链表或红黑树存储数据，线程不安全
-
-- 数组容量默认时16，负载因子默认是0.75
-
-- Java 8以后，链表中的元素超过8后，hashmap会将链表结构转换为红黑树的结构提高查询效率。
-
-线程安全版：Hashtable和ConcurrentHashMap
-
-Hashtable并发性不如ConcurrentHashMap，基本弃用了。
-
-ConcurrentHashMap分段锁实现并发操作，线程安全。
-
-ConcurrentHashMap由多个segment组成，segment的数量也是锁的并发度，每个segment均继承自Reentrantlock并单独加锁，所以每次进行加锁操作时锁住的都是一个segment，这样只要保证每个segment都是线程安全的，也就实现了全局的线程安全。
-
-put，get和resize的过程？
-
-
 
 ### Java的基本类型
 
@@ -144,13 +149,13 @@ java有8种基本类型
 
 ### 多态
 
-父类引用指向子类对象
+- 父类引用指向子类对象
 
-成员变量：编译看等号左边，运行也看等号左边
+- 成员变量：编译看等号左边，运行也看等号左边
 
-成员方法：编译看左边，运行看右边。
+- 成员方法：编译看左边，运行看右边。
 
-父子都有的同名成员，多态时，调用的时父类的成员变量
+- 父子都有的同名成员，多态时，调用的时父类的成员变量
 
 
 
@@ -168,8 +173,11 @@ java有8种基本类型
 - 操作少量的数据 = String
 - 单线程操作字符串缓冲区下操作大量数据 = StringBuilder
 - 多线程操作字符串缓冲区下操作大量数据 = StringBuffer
-
-
+- 安全性
+    1. String和StringBuffer线程安全。
+    2. StringBuilder非线程安全。
+### StringBuffer
+- 加了synchronized同步锁，所以是线程安全的。
 ### final、finally和finalize的区别★★
 
 **final** 关键字主要用在三个地方：变量、方法、类。

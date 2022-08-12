@@ -22,12 +22,16 @@ docker ps -a
 docker pull mysql
 # 启动docker -d是后台运行 -p是指定端口 --name是改名 -e是设置登录密码
 docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 mysql -d
+# 启动已有容器
+docker start 995cbe722379
 # 通过 exec 命令对指定的容器执行 bash
 docker exec -it 995cbe722379 /bin/sh
 # 退出
 exit
 # 进入mysql操作数据库
 mysql -uroot -p123456
+# 在mysql命令行中查看版本信息
+status
 # 删容器
 docker rm [container_id/container_name]
 # 删除镜像: 要把镜像关联的所有容器删完了才能删除这个镜像，否则要用强制删除
@@ -54,4 +58,10 @@ docker build -t ems
 ```shell
 docker run -itd --name ubuntu-test ubuntu
 docker exec -it ubuntu-test /bin/sh
+```
+### redis
+```shell
+docker run -itd --name redis-test -p 6379:6379 redis
+docker exec -it redis-test /bin/bash
+redis-cli
 ```
