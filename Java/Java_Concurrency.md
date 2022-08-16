@@ -16,7 +16,7 @@
 
 
 
-### Synchronized和lock的区别★★★
+### Synchronized和lock的区别
 
 1. synchronized时Java内置的关键字，lock是一个接口
 2. synchronized会自动释放锁，lock需要手动释放。

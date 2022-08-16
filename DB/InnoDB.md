@@ -37,6 +37,21 @@
 2. 逻辑日志。
 3. 用来保证事务的一致性。
 4. 在memory。
+### redo log
+- commit的时候，刷新脏页到缓冲池，而不是刷到磁盘，借助redo log保证变更持久化。
+- 记录数据的逻辑修改。
+  - 更新buffer pool页里面的数据
+  - 生成一个redo log对象
+  - commit后，持久化这个redo log对象到磁盘
+- 出于事务的考虑以及顺序IO比随机IO效率更高。
+- 当达到checkPoint后，即log满了以后，就将数据更新到磁盘上。
+- redo log有两个文件，循环写入。
+
+## undo log
+- 记录每个操作对应的回滚操作，比如插入一条数据时，就在对应的undo log中记录一条删除命令。
+- 每当我们对一条记录做改动insert/delete/update时，都需要把以后回滚的东西记录下来。
+- 所有的改动形成一个版本链，版本链的头节点就是当前记录的最新的值。
+- undo log删除时机：没有比这个undo log更早的read view时，undo log就会被删除。
 ### Binlog
 1. 操作日志
 ### MVCC

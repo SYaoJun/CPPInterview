@@ -1,9 +1,9 @@
 # Java Basic
 ### HashMap原理
-- HashMap数组和链表或红黑树存储数据，线程不安全
+- HashMap数组和链表或红黑树存储数据，线程不安全。
 
-1. 数组容量默认时16，负载因子默认是0.75
-2. Java 8以后，链表中的元素超过8后，hashmap会将链表结构转换为红黑树的结构提高查询效率。
+1. 数组容量默认是16，负载因子默认是0.75。
+2. Java8以后，链表中的元素超过8后，hashmap会将链表结构转换为红黑树的结构提高查询效率。
 
 - put方法
     1. 通过哈希函数获得hashKey。
@@ -41,10 +41,10 @@
 ### unchecked exception
 
 - ArithmeticException 算术异常
-- ClassCastException类转换异常
-- IllegalArgumentException非法参数异常
-- IndexOutOfBoundsException索引越界异常
-- NullPointerException空指针异常
+- ClassCastException 类转换异常
+- IllegalArgumentException 非法参数异常
+- IndexOutOfBoundsException 索引越界异常
+- NullPointerException 空指针异常
 ### 抽象类
 [参考视频](https://www.bilibili.com/video/BV1sZ4y1H7gV?p=185)
 - 抽象类是对事物的抽象，而接口是对行为的抽象。
@@ -127,7 +127,6 @@ java有8种基本类型
 - Byte 1字节  
 
 
-
 ### 反射机制
 
 反射机制：在运行时动态地创建类的对象，获取一个类的所有成员变量和方法。
@@ -145,8 +144,6 @@ java有8种基本类型
 - 类的class属性
 - Class.forName("fullpathname")
 
-
-
 ### 多态
 
 - 父类引用指向子类对象
@@ -158,8 +155,15 @@ java有8种基本类型
 - 父子都有的同名成员，多态时，调用的时父类的成员变量
 
 
-
-### String、StringBuilder和StringBuffer★★
+### String 
+- 不可变
+- 线程安全
+### StringBuilder
+- 非线程安全
+- 效率高
+### StringBuffer
+- 加了synchronized同步锁，所以是线程安全的。
+### String、StringBuilder和StringBuffer的区别
 
 **可变性**
 简单的来说：`String`类中使用`final`关键字字符数组保存字符串，`private final char value[]`，所以`String`对象是不可变的。而`StringBuilder`与`StringBuffer`都继承自`AbstractStringBuilder`类，在`AbstractStringBuilder`中也是使用字符数组保存字串`char[]value`但是没有用`final`关键字修饰，所以这两种对象都是可变的。
@@ -176,8 +180,7 @@ java有8种基本类型
 - 安全性
     1. String和StringBuffer线程安全。
     2. StringBuilder非线程安全。
-### StringBuffer
-- 加了synchronized同步锁，所以是线程安全的。
+
 ### final、finally和finalize的区别★★
 
 **final** 关键字主要用在三个地方：变量、方法、类。
@@ -186,22 +189,22 @@ java有8种基本类型
 - 当用 final 修饰一个类时，表明这个类不能被继承。final 类中的所有成员方法都会被隐式地指定为 final 方法
 - 使用 final 方法的原因有两个。第一个原因是把方法锁定，以防任何继承类修改它的含义；第二个原因是效率。在早期的 Java 实现版本中，会将final 方法转为内嵌调用。但是如果方法过于庞大，可能看不到内嵌调用带来的任何性能提升（现在的 Java 版本已经不需要使用 final 方法进行这些优化了）。类中所有的 private 方法都隐式地指定为 final
 
-**finally**
+- finally
 
 异常处理时,无论是否抛出异常都会执行的语句块,尽量在finally中避免return语句。
 
-**finalize**
+- finalize
 
 是object类中的方法,在该对象被垃圾回收时调用,一个对象的finalize方法只会被调用一次,被调用不意味着gc会立即回收该对象。
 
 
 
-### Java和C++的区别★★
+### Java和C++的区别
 
-- 都是面向对象的语言，支持封装，继承和多态。
-- Java不提供指针来直接访问内存，程序更加安全。
-- Java是单继承，C++是多继承，但是Java可以实现多个接口来达到多继承。
-- Java有内存管理机制，不需要程序员手动释放。
+共同点：都是面向对象的语言，支持封装，继承和多态。
+不同点：
+    - 内存上：C++提供指针直接访问内存，没有垃圾回收机制。
+    - 继承上：Java是单继承，C++是多继承，但是Java可以实现多个接口来达到多继承。- 
 
 ### Java中的值传递和引用传递
 
@@ -210,42 +213,37 @@ java有8种基本类型
 
 ### 集合
 
-Map 接口和 Collection 接口是所有集合框架的父接口。
+- Map接口和Collection 接口是所有集合框架的父接口。
 
-Collection接口的子接口包括List和Set接口
+- Collection接口的子接口包括List和Set接口
 
-List是有序的，可以重复。Set是无序的，不可以重复。
 
-### 扩容机制★★
+### 集合扩容机制
 
 - ArrayList初始容量是10，默认扩容原容量的1.5倍。
 - Vector是线程安全的List子类，初始容量是10，默认扩容是原容量的2倍。
 - Stack是Vector的子类，增加了栈的特性。Vector和Stack都已经过时了，线程安全且高效的，使用Collections.synchronizedList(new ArrayList<>())。
 - Map和Set默认容量都是16，加载因子0.75，默认扩容是原来容量的2倍大小。
 
-### Java集合中的快速失败机制fail-fast
-
-它是 java 集合的一种错误检测机制，当多个线程对集合进行结构上的改变的操作时，有可能会产生 fail-fast 机制。
-
 ### static
 
-修饰成员变量和方式时，static是对象共享的，可以直接使用类操作静态成员变量和方法。
+- 修饰成员变量和方式时，static是对象共享的，可以直接使用类操作静态成员变量和方法。
 
-static优先于非静态加载入内存。
+- static优先于非静态加载入内存。
 
-### equals和hashCode的区别★★
+### equals和hashCode的区别
 
-都是用来判断两个对象是否相同，两者都是Object中的方法，不同的类可以重写该方法。
+- 都是用来判断两个对象是否相同，两者都是Object中的方法，不同的类可以重写该方法。
 
-按照Java的规范，equals相同的两个对象，hashCode必须相同。hashCode相同的对象，equals不一定相同。同时hashCode的返回结果应该具有稳定性。
+- 按照Java的规范，equals相同的两个对象，hashCode必须相同。hashCode相同的对象，equals不一定相同。同时hashCode的返回结果应该具有稳定性。
 
-一般重写equals方法同时也需要重写hashCode方法。
+- 一般重写equals方法同时也需要重写hashCode方法。
 
 ### 包裹类型
 
-8种基本类型都有相应的包裹类型，包裹类型是一个类，所以创建对象的值放在堆中，而基本类型的值是直接放在栈中，因此基本类型的效率更高。
+- 8种基本类型都有相应的包裹类型，包裹类型是一个类，所以创建对象的值放在堆中，而基本类型的值是直接放在栈中，因此基本类型的效率更高。
 
-基本类型和基础类型可以互相转换，集合中只能使用包裹类型。
+- 基本类型和基础类型可以互相转换，集合中只能使用包裹类型。
 
 ### 抽象类和接口★★
 
@@ -255,7 +253,7 @@ static优先于非静态加载入内存。
 -   抽象类只能单继承，接口可以实现多个父接口。
 -   Java8中接口有default方法，即方法可以被实现。
 
-### BIO和NIO和AIO的区别★★★
+### BIO和NIO和AIO的区别
 
 进程触发IO操作时，自己干就是同步，别人干就是异步。可以不亲自去处理，把它委托给OS处理，自己去做别的事情，IO结束后会得到通知。
 
