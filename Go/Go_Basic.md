@@ -2524,7 +2524,211 @@ cities := []string{"上海", "成都"}
 		fmt.Println(index, value)
 	}
 ```
+## 基本语法
 
+- 数组
+- 切片
+- 字符串
+- map
+- 遍历
+- 结构体
+- 排序
+
+## 数据类型
+
+- make三种类型（slice，map，channel）
+
+```go
+package main
+
+import "fmt"
+
+func main(){
+	maps3 := map[string]string{
+		"hello":"world",
+		"this":"myname",
+		"my":"book",
+	}
+	for k, v := range maps3{
+		fmt.Println(k, v)
+	}
+
+	delete(maps3, "hello")
+	for k, v := range maps3{
+		fmt.Println(k, v)
+	}
+}
+```
+
+## 结构体
+
+```go
+package main
+
+import "fmt"
+
+type Book struct{
+	title string
+	price int
+}
+func main(){
+	//定义结构体
+	var book Book
+	book.title = "the great gatsby"
+	book.price = 18
+	fmt.Printf("%v\n", book)
+	printBook(book)
+	fmt.Printf("%v\n", book)
+	printBook2(&book) //传递地址
+	fmt.Printf("%v\n", book)
+
+}
+
+func printBook(book Book){
+	book.price = 19
+}
+
+func printBook2(book *Book){
+	book.price = 19
+}
+```
+
+## 面向对象
+
+- struct
+- interface
+
+```go
+package main
+
+import "fmt"
+
+type Hero struct{
+	Name string
+	Level int
+}
+func (h * Hero) ShowHero(){
+	fmt.Printf("Name = %s\n", h.Name)
+	fmt.Printf("Name = %d\n", h.Level)
+
+}
+func (h *Hero) SetName(name string){
+	h.Name = name
+}
+func (h * Hero) GetName()string{
+	return h.Name
+}
+func main(){
+	hero := Hero{"jacky", 18}
+	hero.ShowHero()
+}
+```
+
+## 传参
+
+- 引用传参：切片和map
+- 值传递：数组
+
+## 别名
+
+- `type myint int`
+
+## 继承
+
+```go
+package main
+
+import "fmt"
+
+type Human struct{
+	Name string
+	Age int
+}
+type SuperMan struct{
+	Human
+	Level int
+}
+
+func (h* Human) ShowName(){
+	fmt.Println(h.Name)
+}
+func (s* SuperMan) ShowName(){
+	fmt.Println(s.Level)
+}
+func main(){
+	s := SuperMan{Human{"jacky",19},6}
+	s.ShowName()
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 存在的问题
+
+- 指针什么时候用点号，什么时候用指针呢？
+
+## Goland快捷键
+
+as快速给切片添加元素
+fp打印到标准流
+
+## 算法
+
+- 数组
+- 字符串
+- 哈希表
+- 双指针
+- 二叉树
+- DFS
+- BFS
+- 排序
+- 贪心
+- 回溯
+- DP
+- 链表
+
+## 数据结构
+
+- 树状数组
+- 线段树
+- 字典树
+- 并查集
+- 最短路
+- 堆
+- 网络流
+- 后缀数组
+
+## 工程实践
+
+- 异常
+- 打包
+- 部署
+- 调试
+- 单元测试
+- 注释
+- 代码风格
+- 安全性
+- 网络开发
+- 数据库
+- 中间件
+
+## 业务理解
+
+- 内核数据库
+- 可靠性
+- 稳定性
+- 高性能
 
 
 

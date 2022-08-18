@@ -36,7 +36,7 @@
     2. 水平分区，横切表。
         - hashing
         - range
-        - round robin
+        - Round Robin
   
 ### 一致性哈希
 - 环形数据，每个节点负责前一段区间，非常方便服务器伸缩。

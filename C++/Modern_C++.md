@@ -1,9 +1,33 @@
-## 现代C++
+# Modern C++
+### C++11
+1. move
+2. forward
+3. lambda
+4. tuple
+5. array
+### C++14
+1. std::make_unique
+2. std::shared_lock
+3. std::shared_timed_mutex
+4. std::exchange
+5. std::quoted
+### C++17
+1. std::shared_mutex
+2. std::string_view
+3. std::optional
+4. std::variant
+5. std::any
+### C++20
+1. ranges
+2. concepts
+3. coroutine
+4. import
+5. module
 ### tuple
 
-优势在于传输一次性的一组数据，如果要大量使用，实际上不及结构体清晰明了。
+- 优势在于传输一次性的一组数据，如果要大量使用，实际上不及结构体清晰明了。
 
-可以将tuple用在map中作为多索引值。可以用来比较两个tuple类型的字典序大小。
+- 可以将tuple用在map中作为多索引值。可以用来比较两个tuple类型的字典序大小。
 
 **tuple可以存引用**
 
