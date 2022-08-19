@@ -15,8 +15,6 @@
 ### paxos
 - proposer
 - acceptor
-### multi-paxos
-
 ### replica
 - 架构配置
 - 同步策略（同步/异步）
