@@ -8,7 +8,7 @@
 4. [数据库](./Basic/数据库.md)
 5. [计算机网络](./Basic/计算机网络.md)
 6. [项目](https://github.com/SYaoJun/cpp_in_action)
-7. [系统设计](./Basic/系统设计.md))
+7. [系统设计](./Basic/系统设计.md)
 
 ## 笔试题
 
