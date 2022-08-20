@@ -24,13 +24,9 @@
 4. import
 5. module
 ### tuple
-
 - 优势在于传输一次性的一组数据，如果要大量使用，实际上不及结构体清晰明了。
-
 - 可以将tuple用在map中作为多索引值。可以用来比较两个tuple类型的字典序大小。
-
-**tuple可以存引用**
-
+- tuple可以存引用
 ```c
 #include <iostream>
 #include <algorithm>
@@ -79,4 +75,3 @@ int main(){
     return 0;
 }
 ```
-### variant
