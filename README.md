@@ -1,17 +1,14 @@
 # Infrastructure Engineer
 - 架构设计
 - 产品业务
-## 参考文献
-1. [LeetCode面试突袭](https://leetcode.cn/leetbook/detail/cpp-interview-highlights/)
-
 ## 后台研发
 1. 编程语言([C++](./C++)、[Java](./Java)、[Go](./Go))
 2. [数据结构与算法](./DS)
 3. [操作系统](./Basic/操作系统.md)
 4. [数据库](./Basic/数据库.md)
 5. [计算机网络](./Basic/计算机网络.md)
-6. 项目
-7. 系统设计
+6. [项目](https://github.com/SYaoJun/cpp_in_action)
+7. [系统设计](./Basic/系统设计.md))
 
 ## 笔试题
 
@@ -47,10 +44,10 @@
 
 ## 书单
 - 《算法导论》第三版
-- 《算法笔记》胡凡、曾磊
+- 《算法笔记》胡凡
 - 《深入理解计算机系统》
 - 《深入理解JVM虚拟机》周志明
-- 《C++ primer》第五版
+- 《C++ Primer》第五版
 - 《机器学习》周志华
 - 《算法竞赛入门指南》刘汝佳 第二版
 - 《程序员面试指南》左程云
@@ -71,3 +68,5 @@
 - 左程云
 - 花花酱
 - 闫学灿
+## 参考文献
+1. [LeetCode面试突袭](https://leetcode.cn/leetbook/detail/cpp-interview-highlights/)
