@@ -1,9 +1,6 @@
 # Infrastructure Engineer
 - 架构设计
 - 产品业务
-## 参考文献
-1. [LeetCode面试突袭](https://leetcode.cn/leetbook/detail/cpp-interview-highlights/)
-
 ## 后台研发
 1. 编程语言([C++](./C++)、[Java](./Java)、[Go](./Go))
 2. [数据结构与算法](./DS)
@@ -71,3 +68,5 @@
 - 左程云
 - 花花酱
 - 闫学灿
+## 参考文献
+1. [LeetCode面试突袭](https://leetcode.cn/leetbook/detail/cpp-interview-highlights/)
