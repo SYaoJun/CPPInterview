@@ -62,7 +62,7 @@
 - 《数据结构与算法》 陈越 
 - 《设计模式》[李建忠](https://www.bilibili.com/video/BV1Eb4y1m7Uj?from=search&seid=8468035381340447890)
 - 《深入理解计算机系统》[yaaangmin](https://space.bilibili.com/4564101)
-- 《Linux网络编程》[黑马程序员](https://www.bilibili.com/video/BV1iJ411S7UA?from=search&seid=4595218497844084120)
+- 《Linux网络编程》[黑马程序员](https://www.bilibili.com/video/BV1dt411f7TZ?p=142&vd_source=e9f1ced96b267a4bc02ec41ca31d850a)
 
 ## 算法
 - 左程云
