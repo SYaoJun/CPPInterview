@@ -12,9 +12,9 @@
 - Page 页：物理磁盘上的存储单元。
 - Frame 帧：内存上的存储单元，跟Page大小相同。
 ### 页表和页目录
-- Page Table 页表：内存池的索引，用于查询对应的Page或Frame。
+- Page Table 页表：内存池的索引，用于查询对应的Page或Frame。索引那些已经在内存中的页。
 - Page Directory 页目录：磁盘上的索引，跟页表是同一回事。
-### 锁和闩
+### Locks VS. Latches
 - Lock 锁：逻辑上，抽象上，high level的。
 - Latch 闩：底层实现，粒度较小，如mutex。
 ### 查询优化策略
