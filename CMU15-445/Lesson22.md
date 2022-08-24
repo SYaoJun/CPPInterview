@@ -65,7 +65,6 @@
   1. 算子下推
   2. 查询计划
 - 调度
-
 ## RocksDB
 - LSM
 - SSTable
