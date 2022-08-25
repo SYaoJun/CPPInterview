@@ -16,14 +16,21 @@
   5. myISAM索引文件和数据文件是分离的，查询较多的更新较少的情况下优先使用。
 
 ### Clustered Index 聚集索引
-- 聚集索引，又称为主键索引。
+- [参考视频](https://www.bilibili.com/video/BV1Er4y1572y?spm_id_from=333.337.search-card.all.click&vd_source=e9f1ced96b267a4bc02ec41ca31d850a)
+- [参考文档](https://zhuanlan.zhihu.com/p/401198674)
+- 聚集索引，又称为主键索引，如果没有主键，innodb会默认选择或添加一个主键。
+- 聚集索引的存储并不是物理上连续的，而是逻辑上连续的。
+- 叶子节点中存放的即为整张表的行记录数据。
 - InnoDB是索引组织表，表中数据按照主键顺序存放。
 - 聚集索引是按照每张表的主键，构造一颗B+树，同时叶子节点中存放的即为整张表的行记录数据，也将聚集索引的叶子节点称为数据页data page。
 - 每张表只能拥有一个聚集索引。
+- 对name建立了索引，查询到name=yaojun这条数据，yaojun所在的行中，主键是id=26，所以拿着id=26去主键索引里面查这一行的全部数据。
+- 回表：通过辅助索引找到了主键值，在通过主键索引获取到这个主键值所对应的行记录。
 ### Secondary Index 辅助索引
 - 辅助索引，又称为非聚集索引，或者二级索引。
 - 辅助索引是指叶子节点并不包含行记录的全部数据。
-- 聚集索引和辅助索引的区别在于叶子几点存放的是否是一整行的信息。
+- 通过辅助索引叶节点指针获得指向主键索引的主键，然后通过主键索引来找到一个完整的行记录。
+- 聚集索引和辅助索引的区别在于叶子节点存放的是否是一整行的信息。
 - 所有辅助索引的叶子节点都引用主键索引，过长的主索引会使得辅助索引变得过大。
 - 唯一索引，普通索引，前缀索引都是二级索引
 > 思考：为什么辅助索引叶子节点不直接存行记录的指针，而要存主键索引的值？
@@ -50,21 +57,19 @@
   - commit后，持久化这个redo log对象到磁盘
 - 出于事务的考虑以及顺序IO比随机IO效率更高。
 - 当达到checkPoint后，即log满了以后，就将数据更新到磁盘上。
-- redo log有两个文件，循环写入。
+- redo log有两个文件，循环写入。为什么redo log要有两个文件，因为checkpoint和write position有一定间隔。
 - 写入数据流程。buffer pool -> redo log buffer -> os buffer -> redo log file
 - redo log 刷盘规则
   1. commit时刷
   2. 周期间隔刷
   3. 容量大小过半刷
   4. checkpoint到达检查点时刷
-### binlog和 redo log的区别
+### binlog和redo log的区别
 - 首先，二进制日志会记录所有与MySQL数据库有关的日志记录，包括InnoDB、MyISAM、Heap等其他存储引擎的日志。而InnoDB存储引擎的重做日志只记录有关该存储引擎本身的事务日志。
 - 其次，记录的内容不同，无论用户将二进制日志文件记录的格式设为STATEMENT还是ROW，又或者是MIXED，其记录的都是关于一个事务的具体操作内容，即该日志是逻辑日志。而InnoDB存储引擎的重做日志文件记录的是关于每个页（Page）的更改的物理情况。
 - 此外，写入的时间也不同，二进制日志文件仅在事务提交前进行提交，即只写磁盘一次，不论这时该事务多大。而在事务进行的过程中，却不断有重做日志条目（redo entry）被写入到重做日志文件中。
 ### binlog
-
 [链接](https://blog.csdn.net/eagle89/article/details/107959587?utm_medium=distribute.pc_relevant.none-task-blog-baidujs_baidulandingword-1&spm=1001.2101.3001.4242)
-
 - 以二进制的形式记录了数据库的变更操作，MySQL从5.1版本引入了binlog_format参数，该参数可设的值有三种格式
   1. statement记录逻辑SQL语句
   2. row记录表的行更改情况`update t2 set username = UPPER(username)`，有些语句下row可能需要更大的容量
@@ -78,11 +83,8 @@
   1. slave的IO thread
   2. master的dump thread
   3. sql线程从relay log中重放数据
-
 - 主从复制不是强一致性，而是最终一致性。
 - master配合binlog会影响性能。
-### MVCC
-- 多版本并发控制
 ### 节点
 - 节点大小16k
 - 磁盘页4k
