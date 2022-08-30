@@ -1,10 +1,8 @@
 # Java Basic
 ### HashMap原理
 - HashMap数组和链表或红黑树存储数据，线程不安全。
-
 1. 数组容量默认是16，负载因子默认是0.75。
 2. Java8以后，链表中的元素超过8后，hashmap会将链表结构转换为红黑树的结构提高查询效率。
-
 - put方法
     1. 通过哈希函数获得hashKey。
         - 哈希函数的实现：
@@ -17,11 +15,8 @@
     - 二倍扩容
 ### ConcurrentHashMap
 - 线程安全：Hashtable和ConcurrentHashMap
-
 - Hashtable并发性不如ConcurrentHashMap，Hashtable全部方法都使用了Synchronized锁来保证并发冲突。
-
 - CHM原理：ConcurrentHashMap分段锁实现并发操作，锁的粒度更小。
-
 - ConcurrentHashMap由多个segment组成，segment的数量也是锁的并发度，每个segment均继承自Reentrantlock并单独加锁，所以每次进行加锁操作时锁住的都是一个segment，这样只要保证每个segment都是线程安全的，也就实现了全局的线程安全。
 - 哈希函数为什么要加个与操作呢？
   - `(h ^ (h >>> 16)) & HASH_BITS`
@@ -39,7 +34,6 @@
 - Runtime Exception及其子类都是unchecked exception。
 
 ### unchecked exception
-
 - ArithmeticException 算术异常
 - ClassCastException 类转换异常
 - IllegalArgumentException 非法参数异常
@@ -48,33 +42,22 @@
 ### 抽象类
 [参考视频](https://www.bilibili.com/video/BV1sZ4y1H7gV?p=185)
 - 抽象类是对事物的抽象，而接口是对行为的抽象。
-
 1. 抽象类中可以有构造方法，但只供子类调用。
 2. 抽象类中不一定有抽象方法。
 3. 抽象类中非抽象方法可以有函数体。
 4. 抽象方法可以被public, protected和private修饰。
 
 ### 接口
-
 [参考视频](https://www.bilibili.com/video/BV1T7411m7Ta?p=182)
-
 1. 成员变量，格式：[public] [static] [final] 数据类型 常量名称 = 初始值；
-
     - 常量必须进行赋值，一旦赋值不能被修改。
     - 常量名称完全大写，用下划线分割。
-
 2. 抽象方法，格式：[public] [abstract] 返回值类型 方法名称(参数列表)；
-
 3. 默认方法(java 8)，格式：[public] default 返回值类型 方法名称(参数列表){方法体}
-
     - 也可以被覆盖重写（提供这种访问方式的目的是什么呢？）
-
 4. 静态方法(java 8)，格式: [public] static 返回值类型 方法名称(参数列表){方法体}
-
     - 应该通过接口名称进行调用，不能通过实现类对象调用静态方法
-
     - `MyInterfaceStatic.methodStatic();`
-
       ```java
       public interface MyInterfaceStatic {
           static void methodStatic(){
@@ -82,7 +65,6 @@
           }
       }
       ```
-
 5. 私有方法(java 9), 格式:
 
     - 普通私有方法：private 返回值类型 方法名称(参数列表){方法体}
@@ -100,39 +82,23 @@ public final static int  staticData = 4 + new Random().nextInt(10) ; //需要加
 public final static int  staticData = 4 ; //不需要加载类，直接去常量池取
 ```
 
-### ArrayList和LinkedList的区别
-
--   Arraylist内存地址是连续的，底层是数组。随机访问的速度比较快，是常数时间，删除是线性的复杂度。
-
--   LinkedList内存地址是不连续的，是单链表。随机访问比较差，是线性的，插入删除比较快是常数时间。
-
 ### Java的基本类型
 
-java有8种基本类型
-
+- java有8种基本类型
 - Integer 4字节
-
 - Long 8字节
-
 - Double 8字节
-
 - Boolean 1字节
-
 - Short 2字节
-
 - Float 4字节
-
 - Char 2字节
-
 - Byte 1字节  
-
 
 ### 反射机制
 
-反射机制：在运行时动态地创建类的对象，获取一个类的所有成员变量和方法。
+- 反射机制：在运行时动态地创建类的对象，获取一个类的所有成员变量和方法。
 
 反射的作用：
-
 - 得到一个对象所属的类
 - 获取一个类的所有成员变量和方法
 - 在运行时动态地创建类的对象
@@ -378,7 +344,7 @@ class Student{
 [黑马链接](https://www.bilibili.com/video/BV1N741127FH?p=11)
 [freecoder链接](https://www.bilibili.com/video/BV1SJ41157oF?from=search&seid=2503862003293010990)
 
-- **每个thread中有个threadlocals，这个threadlocals是threadlocalmap，key是threadlocal，value是变量副本值。**
+- 每个thread中有个threadlocals，这个threadlocals是threadlocalmap，key是threadlocal，value是变量副本值。**
 - 线程隔离：将变量绑定到当前线程中。
 - threadlocal使用空间换时间，每个线程都有一份变量的副本。
 - ThreadLocalMap中的key使用了弱引用，也会出现内存泄露。value内存不会回收。
@@ -389,9 +355,8 @@ class Student{
     - 没有手动删除entry
     - Thread仍然在运行
 - 哈希冲突
-    - 环形数组，**线性探测法**，哈希数组而不是链表和红黑树。
-
-## 线程池原理
+    - 环形数组，线性探测法，哈希数组而不是链表和红黑树。
+### 线程池原理
 
 - 线程复用，方便管理，提高响应速度。
 - 尽量使用ThreadPoolExecutor创建
@@ -425,7 +390,7 @@ class Student{
 
 - synchronized是关键字，lock是接口。
 - synchronized可以锁对象和类，一般处理小块代码，lock通常用来锁大块代码。
-- **synchronized是阻塞等待获取锁**，lock可以调用trylock超时等待获取锁。
+- synchronized是阻塞等待获取锁，lock可以调用trylock超时等待获取锁。
 - synchronized自动释放锁，lock需要手动释放。
 - synchronized是非公平锁，可重锁，不可中断。lock可以设置公平与非公平，也可重入，可以获取锁的状态。
 
@@ -540,7 +505,7 @@ class Student{
     - 拒绝策略
 - 四个拒接策略
     - abortPolicy
-    - callrunerPolicy
+    - callRunnerPolicy
     - discardPolicy
     - discardOldestPolicy
 
@@ -577,20 +542,12 @@ class Student{
     - full join
 - binlog
 
-## 状态码
 
-- 500 internal service error
-- 502 bad gateway
-- 503 service unavailible
-- 504 gateway time out
-- 499 客户端主动断开连接
-
-## 关键字
-
+### 关键字
 - instanceOf 判断一个对象是否是某个类的对象
-- final **成员变量不可变，成员方法不可重写，类不可继承。**
+- final 成员变量不可变，成员方法不可重写，类不可继承
 - finalize 主动触发垃圾回收
-- finally **不管抛出异常与否都需要执行**
+- finally 不管抛出异常与否都需要执行
 - clone 深拷贝
 
 ## HashMap
@@ -606,15 +563,15 @@ class Student{
 - Collection
     - List
         - ArrayList
-        - **Vector[线程安全]**
-            - **Stack[线程安全]**
+        - Vector[线程安全]
+            - Stack[线程安全]
         - LinkedList
     - Set
         - HashSet
         - SortedSet
             - TreeSet
     - Queue
-        - **PriorityQueue**
+        - PriorityQueue
 - Map
     - HashMap
         - LinkedHashMap
@@ -622,35 +579,25 @@ class Student{
         - TreeMap
     - HashTable[线程安全]
 
-## 基本类型
-
-- **byte 1字节**
-- char 2字节
-- short 2字节
-- int 4字节
-- long 8字节
-- float 4字节
-- double 8字节
-- **boolean 1字节**
+int long short 2
+float double
+char 2
+boolean 1
+byte 1
 
 ## 包裹类
-
-- 包裹类型是一个类，**创建的对象放在堆中。**
+- 包裹类型是一个类，创建的对象放在堆中。
 - 基本类型的值是直接放在栈中，效率更高。
 - 集合只能使用包裹类。
-
+### 思考：为什么要有primitive类型？
+- int相对于integer的优势是什么？
 ## 反射
-
 - 动态地获取类的属性和方法的机制。
 - 三种方式获取到类对象
     - instance.getClass()
     - Class.class
     - Class.forName("")
-
-## 注解
-
-- 本质是接口
-
+    
 ## 异常
 
 - **Throwable**
@@ -803,20 +750,13 @@ jdk1.7开始，字符串常量池已经被移到堆区。
 - 所有被同步锁（synchronized关键字）持有的对象
 
 ### Java内存结构
-
-- 程序计数器
-- 虚拟机栈
-- 本地方法栈
-- 堆
-- 方法区
-
-**线程私有：**程序计数器，虚拟机栈，本地方法栈。
-**线程共享：**堆，方法区。
-
-### 程序计数器
-
-**作用：**用于记住下一条jvm指令的执行地址
-**特点：**线程私有，不会存在内存溢出。
+1. 程序计数器
+2. 虚拟机栈
+3. 本地方法栈
+4. 堆
+5. 方法区
+- 线程私有：程序计数器，虚拟机栈，本地方法栈。
+- 线程共享：堆，方法区。
 
 > 程序计数器可以看作是当前线程锁执行的字节码的行号提示器。
 
