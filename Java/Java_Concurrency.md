@@ -5,11 +5,8 @@
 - 实现Callable接口
 
 通过实现Runnable接口的特点
-
--   资源类是一个单独的类，线程和资源类解耦。
-
+- 资源类是一个单独的类，线程和资源类解耦。
 通过实现Callable接口的特点
-
 - 有返回值，会阻塞
 - 可抛出异常
 - 有缓存
@@ -17,7 +14,6 @@
 
 
 ### Synchronized和lock的区别
-
 1. synchronized时Java内置的关键字，lock是一个接口
 2. synchronized会自动释放锁，lock需要手动释放。
 3. synchronized线程获取方式是阻塞等待，而lock可以尝试获取锁。

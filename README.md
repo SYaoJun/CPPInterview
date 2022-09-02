@@ -42,30 +42,35 @@
 > - LeetCode经典题目讲解：参考这个[仓库](https://github.com/SYaoJun/LeetCode)。
 
 ## 书单
-- 《算法导论》第三版
-- 《算法笔记》胡凡
-- 《深入理解计算机系统》
-- 《深入理解JVM虚拟机》周志明
+### C++
 - 《C++ Primer》第五版
-- 《机器学习》周志华
-- 《算法竞赛入门指南》刘汝佳 第二版
-- 《程序员面试指南》左程云
-- 《剑指offer》何海涛
-- 《C++ Primer》 第五版
 - 《后台开发: 核心技术与应用实践》 徐晓鑫
+### Java
+- 《深入理解JVM虚拟机》周志明
+### 计算机基础
+- 《深入理解计算机系统》
 - 《Linux高性能服务器编程》 游双
 - 《Redis设计与实现》黄健宏
-
+### 算法
+- 《算法导论》第三版
+- 《算法笔记》胡凡
+- 《剑指offer》何海涛
+- 《算法竞赛入门指南》刘汝佳 第二版
+- 《程序员面试指南》左程云
+### AI
+- 《机器学习》周志华
 ## 课程
 - 《操作系统》[蒋炎岩](https://www.bilibili.com/video/BV1N741177F5)
 - 《数据结构与算法》 陈越 
 - 《设计模式》[李建忠](https://www.bilibili.com/video/BV1Eb4y1m7Uj?from=search&seid=8468035381340447890)
 - 《深入理解计算机系统》[yaaangmin](https://space.bilibili.com/4564101)
 - 《Linux网络编程》[黑马程序员](https://www.bilibili.com/video/BV1dt411f7TZ?p=142&vd_source=e9f1ced96b267a4bc02ec41ca31d850a)
-
+## 题库
+1. [PAT数据结构与算法](https://pintia.cn/problem-sets/15/problems/type/7)
+2. [LeetCode](https://leetcode.cn/problemset/all/)
 ## 算法
 - 左程云
 - 花花酱
 - 闫学灿
-## 参考文献
+## 参考资料
 1. [LeetCode面试突袭](https://leetcode.cn/leetbook/detail/cpp-interview-highlights/)
