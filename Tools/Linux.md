@@ -4,18 +4,32 @@
 2. grep命令，按照文件内容来查找。使用规则是grep option pattern file
 3. ps aux
 4. curl命令 访问一个网页
-5. df查看磁盘大小
-6. du查看目录大小
+5. df 查看磁盘大小
+6. du 查看目录大小
 7. free -h 查看内存大小和使用情况
-8. top查看系统的实时负载
+8. top 查看系统的实时负载
 9. netstat -ta 查看监听的TCP
 10. stat 获取文件属性
 11. file 查看文件类型
 12. sudo iptables -L 查看防火墙状态
 13. sudo vim etc/sysctl.conf 查看TCP属性
-
+14. touch yao.txt 创建文件
+15. echo >> jun.txt 追加 >是重写
+16. cat/less/more/tail/head yao.txt 查看文件类型
+17. chmod修改文件权限
+18. tar/zip
+19. kill
+### 特殊工具
+- vim
+- gdb
+- perf
+- strace
 ### 常用命令
 ```shell 
+# 多个目录
+mkdir -p lover/zyy
+# 当前路径
+pwd
 # 以树形结构查看目录
 tree -L 2
 cat hello.cpp
@@ -54,26 +68,13 @@ tar -zcvf 压缩文件夹名 .tar.gz 被压缩文件名
 tar -zxvf 压缩文件名.tar.gz
 ```
 ## linux常用命令
-
 -   awk 参数 脚本 文件
-
-    ```shell
+```shell
      awk '{print  NR NF "\t"  $0, $1 }'
-    ```
-
+```
 -   wc -c 字符数 -l 行数 -w 单词数
-
 -   sort
-
-    ```shell
+```shell
     sort -r coin.txt 逆序
     sort -n coin.txt 数值
-    ```
-### Aarch64和x86_64
-- ARM和Intel：两家CPU供应商，ARM设计了Aarch64，intel设计了x86_64。
-- 都是CPU的指令集架构
-- 都是针对64位机
-- 都是当下使用最多的两个CPU
-- 区别：
-    1. Aarch64是使用的精简指令集RISC，优点是功耗低，常用来嵌入式，移动设备上。
-    2. intel是使用的复杂指令集CISC，优点是性能高，用在高性能计算设备上。
+```
