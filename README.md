@@ -1,6 +1,7 @@
-# Infrastructure Engineer
-- 架构设计
-- 产品业务
+> 最新内容请参考[知乎@我不是匠人](https://www.zhihu.com/people/wan-yi-er-89)
+# wiki
+- C/C++系统开发
+- C/C++数据库内核
 ## 后台研发
 1. 编程语言([C++](./C++)、[Java](./Java)、[Go](./Go))
 2. [数据结构与算法](./DS)
