@@ -16,7 +16,7 @@
 - read
 - write
 - open
-- 以上系统调用都是C库，是汇编语言的集合，生成RISC_V指令
+> 以上系统调用都是C库，是汇编语言的集合，生成RISC_V指令
 - fork
 - exec
 - wait
