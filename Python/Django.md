@@ -1,6 +1,7 @@
 # Django
-- urls 配置路由
-- views 实现响应函数
+- 一个web后台服务框架
+- 参考[demo项目](https://github.com/SYaoJun/Django)
+## 常用命令
 ```shell
 django-admin startproject hello  // 创建项目
 python3 manage.py runserver // 启动服务

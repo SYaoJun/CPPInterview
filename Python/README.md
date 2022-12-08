@@ -1,4 +1,9 @@
 # Python
+1. 机器学习
+2. 爬虫
+3. 脚本
+4. Django框架
+5. 绘图
 ## 保留小数
 ```shell
 print("{:.2f} hello world!".format(3.1415))
