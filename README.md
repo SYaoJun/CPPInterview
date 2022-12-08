@@ -1,8 +1,5 @@
-> 最新内容请参考[知乎@我不是匠人](https://www.zhihu.com/people/wan-yi-er-89)
-# wiki
-- C/C++系统开发
-- C/C++数据库内核
-## 后台研发
+# 系统开发笔记
+## 基础知识
 1. 编程语言([C++](./C++)、[Java](./Java)、[Go](./Go))
 2. [数据结构与算法](./DS)
 3. [操作系统](./Basic/操作系统.md)
@@ -11,7 +8,7 @@
 6. [项目](https://github.com/SYaoJun/cpp_in_action)
 7. [系统设计](./Basic/系统设计.md)
 
-### 笔试题
+## 笔试题
 1.  模拟 ★★★★★ 可难可易 大部分题都是模拟中使用某个算法优化
 2.  贪心 ★★★ 按照某种规则排序
 3.  字符串 ★★★ 输入输出容易搞人 双指针处理字符串空格单词
@@ -73,5 +70,7 @@
 - 左程云
 - 花花酱
 - 闫学灿
-## 参考资料
+## 其他
 1. [LeetCode面试突袭](https://leetcode.cn/leetbook/detail/cpp-interview-highlights/)
+2. [知乎@我不是匠人](https://www.zhihu.com/people/wan-yi-er-89)
+3. [C/C++系统开发文档汇总](https://ym9omojhd5.feishu.cn/docx/CO06d9i6golR7ZxOdHbcwUWOnke)

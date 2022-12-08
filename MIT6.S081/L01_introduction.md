@@ -20,3 +20,5 @@
 - fork
 - exec
 - wait
+## RISC_V
+- 不能在RISC-V上运行所有为Intel设计的软件
