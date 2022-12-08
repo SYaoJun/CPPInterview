@@ -5,26 +5,6 @@
 - 方法
 - 结构体
 - 接口
-## 数组
-
-```go
-package main
-
-import "fmt"
-
-func main(){
-	/*数组*/
-	var team = [...]string{"string", "solider", "mum"}
-	for k, v:= range team{
-		fmt.Println(k, v)
-	}
-	/*切片 动态分配大小的连续空间*/
-	var strList [] string
-	strList = append(strList, "hello")
-	fmt.Println(strList)
-
-}
-```
 
 ## golang的坑
 1. 同一个结构体可以实现多个接口
