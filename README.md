@@ -1,3 +1,4 @@
+> 最新动态请关注[C/C++系统开发飞书文档汇总](https://ym9omojhd5.feishu.cn/docx/CO06d9i6golR7ZxOdHbcwUWOnke)
 # 系统开发笔记
 ## 基础知识
 1. 编程语言([C++](./C++)、[Java](./Java)、[Go](./Go))
@@ -73,5 +74,4 @@
 ## 其他
 1. [LeetCode面试突袭](https://leetcode.cn/leetbook/detail/cpp-interview-highlights/)
 2. [知乎@我不是匠人](https://www.zhihu.com/people/wan-yi-er-89)
-3. [C/C++系统开发文档汇总](https://ym9omojhd5.feishu.cn/docx/CO06d9i6golR7ZxOdHbcwUWOnke)
-4. [CSDN算法博客](https://blog.csdn.net/SYaoJun/article/details/102742093)
+3. [CSDN算法博客](https://blog.csdn.net/SYaoJun/article/details/102742093)
