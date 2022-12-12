@@ -1,4 +1,5 @@
 from collections import Counter
+
 colors = ['red', 'red', 'blue', 'blue', 'green', 'yellow']
 result = Counter(colors)
 print(dict(result))  # 统计词频

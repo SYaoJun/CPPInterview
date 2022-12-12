@@ -7,11 +7,13 @@ def list_test():
     for item in my_list:
         print(item)
 
+
 def dict_test():
-    my_dict = dict();
+    my_dict = dict()
     my_dict[1] = 'hello'
     my_dict[2] = 'world'
     print(my_dict[1])
-    
-if __name__== "__main__" :
+
+
+if __name__ == "__main__":
     dict_test()

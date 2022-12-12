@@ -1,9 +1,7 @@
 ## webbench 
-
-测压软件 最高并发3W 
-
-webbench做测试时自身也会消耗CPU和内存资源，为了测试准确，需要将webbench安装在别的服务器上。
-
+- 测压软件
+- 最高并发3W 
+> 注意：webbench做测试时自身也会消耗CPU和内存资源。为了测试准确，需要将webbench安装在别的服务器上。
 ```shell
 tar -xzvf webbench-1.5.tar.gz
 cd webbench-1.5
@@ -15,12 +13,6 @@ make && make install
 
 ``` shell
 webbench -c 1000 -t 5 http://127.0.0.1:9999/index.html //1000个客户端 5秒钟时间
-```
-
-## github
-
-```shell
-git clone https://github.com/SYaoJun/WebServer.git //把仓库中的内容拷贝到linux系统中
 ```
 
 ## 回调函数
@@ -708,90 +700,6 @@ int main(void){
     return 0;
 }
 ```
-
-## 初阶日志系统
-
-```c
-#include <stdio.h>
-#include <unistd.h>
-#include <pthread.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <assert.h>
-#include <fcntl.h>
-#include <mutex>
-#include <atomic>
-using namespace std;
-class Logger{
-    public:
-        static Logger* get_instance();
-        static Logger* log;
-        static mutex log_mutex;
-        static void write_log(int level, char* s);
-        static void create_file();
-        static int fd;
-    private:
-        Logger();
-        Logger(const Logger& other);
-        ~Logger();
-};
-Logger* Logger::log = NULL;
-mutex Logger::log_mutex;
-int Logger::fd = 0;
-Logger::Logger(){};
-Logger::~Logger(){
-    if(log != NULL){
-        delete log;
-        log = NULL;
-    }
-    close(fd);
-}
-Logger* Logger::get_instance(){
-    if(log == NULL){
-        log_mutex.lock();
-        if(log == NULL){
-            log = new Logger();
-        }
-        log_mutex.unlock();
-    }
-    return log;
-}
-void Logger::create_file(){
-    fd = open("logger.txt", O_RDWR|O_CREAT|O_TRUNC, 777);
-    assert(fd > 0);
-}
-void Logger::write_log(int level, char* s){
-    int n = strlen(s);
-    log_mutex.lock();
-    write(fd, s, n);
-    log_mutex.unlock();
-}
-```
-
-## 单例模式
-
-```c
-//C++11 atomic
-std::atomic<Logger*> Logger::log;
-std::mutex Logger::log_mutex;
-Logger* Logger::get_instance(){
-    Logger* tmp = log.load(std::memory_order_relaxed);
-    std::atomic_thread_fence(std::memory_order_acquire); //获取内存fence
-    if(tmp == NULL){
-        std::lock_guard<std::mutex> lock(log_mutex);
-        tmp = log.load(std::memory_order_relaxed);
-        if(tmp == NUll){
-            tmp = new Logger;
-            std::atomic_thread_fence(std::memory_order_release); //释放内存fence
-            log.store(tmp, std::memory_order_relaxed);
-        }
-    }
-    return tmp;
-}
-```
-
 ## 主线程测试
 
 ```c
@@ -1353,46 +1261,6 @@ int main(){
 
 ```
 
-## 自旋锁
-
-线程同步的一种方式。使用自旋锁的线程会反复检查锁变量是否可用。自旋锁不会让出CPU，一种忙等待状态。死循环等待锁被释放。**自旋锁避免了进程或线程上下文的开销**。自旋锁不适合在单CPU中使用。
-
-```c
-#include <unistd.h>
-#include <stdio.h>
-#include <pthread.h>
-#include <stdlib.h>
-const int N = 1e7;
-int num = 0;
-pthread_spinlock_t spin_lock;
-void *producer(void *){ 
-    int times = N;
-    while(times--){
-        pthread_spin_lock(&spin_lock);
-        ++num;
-        pthread_spin_unlock(&spin_lock);
-    }
-}
-void *comsumer(void*){
-    int times = N;
-    while(times--){
-        pthread_spin_lock(&spin_lock);
-        --num;
-        pthread_spin_unlock(&spin_lock);
-    }
-}
-int main(){
-    pthread_spin_init(&spin_lock, 0);
-    pthread_t th1, th2;
-    pthread_create(&th1, NULL, &producer, NULL);
-    pthread_create(&th2, NULL, &comsumer, NULL);
-    pthread_join(th1, NULL);
-    pthread_join(th2, NULL);
-    printf("num =  %d\n", num);
-    return 0;
-}
-
-```
 
 ## 条件变量
 
@@ -1403,65 +1271,5 @@ int main(){
 ```c
 pthread_cond_wait(&cond, &mutex)
 1. 阻塞等待该条件变量直到满足 2.释放已经掌握的互斥锁 3.满足条件后重新拿锁
-```
-
-```c
-#include <unistd.h>
-#include <stdio.h>
-#include <pthread.h>
-#include <stdlib.h>
-const int MAX_BUF = 100;
-int num = 0;
-pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
-pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
-
-void *producer(void *){ 
-    while(true){
-       pthread_mutex_lock(&mutex);
-       while(num >= MAX_BUF){ //由于阻塞解除时，只有一个物品可用 但是却有多个线程解除阻塞 所以需要循环检测一次
-           //满了 等待消费者消费
-           pthread_cond_wait(&cond, &mutex);
-           printf("缓冲区满了 等待消费者消费\n");
-       }
-       //生产一个物品
-        ++num;
-        printf("生产一个产品，当前产品数量为：%d\n", num);
-        sleep(1);
-        pthread_mutex_unlock(&mutex);
-        //通知消费者可消费了
-        pthread_cond_signal(&cond);
-        printf("通知消费者...\n");
-        sleep(1);
-    }
-}
-void *comsumer(void*){
-    while(true){
-       pthread_mutex_lock(&mutex);
-       while(num <= 0){ 
-           //缓冲区为空 等待生产者生产
-           pthread_cond_wait(&cond, &mutex);
-           printf("缓冲区空了 等待生产者生产\n");
-       }
-       //生产一个物品
-        --num;
-        printf("消费一个产品，当前产品数量为：%d\n", num);
-        sleep(1);
-        pthread_mutex_unlock(&mutex);
-        //通知消费者可消费了
-        pthread_cond_signal(&cond);
-        printf("通知生产者...\n");
-    }
-}
-int main(){
-    pthread_t th1, th2;
-    pthread_create(&th1, NULL, &producer, NULL);
-    pthread_create(&th2, NULL, &comsumer, NULL);
-    pthread_join(th1, NULL);
-    pthread_join(th2, NULL);
-    printf("num =  %d\n", num);
-    return 0;
-}
-
-
 ```
 
