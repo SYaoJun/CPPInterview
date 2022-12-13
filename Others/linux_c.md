@@ -15,38 +15,6 @@ make && make install
 webbench -c 1000 -t 5 http://127.0.0.1:9999/index.html //1000个客户端 5秒钟时间
 ```
 
-## 回调函数
-
-**函数指针**本身是指针变量，指向某个函数的入口地址。
-
-```c
-#include <stdio.h>
-#include <unistd.h>
-int run(void(*step)(void)){ //回调函数的传参是声明的格式
-    int cnt = 0;
-    while(1){
-        if(step != NULL) step();
-        cnt++;
-        sleep(1);
-    }
-    return 0;
-}
-```
-
-```c
-void cb(void){  //回调函数
-    puts("记秒到时");
-}
-int main(){
-    run(cb);
-    return 0;
-}
-```
-
-```c
-gcc cb.c main.c
-```
-
 ## 信号函数
 
 ```c
@@ -1263,11 +1231,11 @@ int main(){
 
 
 ## 条件变量
-
-条件变量本身不是锁，但它可以造成线程阻塞。通常与互斥锁配合使用。给多线程提供一个汇合的场所。
-
+- 条件变量本身不是锁，但它可以造成线程阻塞。通常与互斥锁配合使用。给多线程提供一个汇合的场所。
 ```c
 pthread_cond_wait(&cond, &mutex)
-1. 阻塞等待该条件变量直到满足 2.释放已经掌握的互斥锁 3.满足条件后重新拿锁
+1. 阻塞等待该条件变量直到满足 
+2. 释放已经掌握的互斥锁 
+3. 满足条件后重新拿锁
 ```
 
