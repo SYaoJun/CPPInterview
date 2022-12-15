@@ -4,7 +4,7 @@
 1. 编程语言([C++](./C++)、[Java](./Java)、[Go](./Go))
 2. [数据结构与算法](./DS)
 3. [操作系统](./Basic/操作系统.md)
-4. [数据库](./Basic/数据库.md)
+4. [数据库](./Basic/数据库原理.md)
 5. [计算机网络](./Basic/计算机网络.md)
 6. [项目](https://github.com/SYaoJun/cpp_in_action)
 7. [系统设计](./Basic/系统设计.md)
