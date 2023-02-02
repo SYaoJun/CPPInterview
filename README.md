@@ -1,4 +1,5 @@
-<iframe style="width:100%;height:auto;min-width:600px;min-height:400px;" src="https://star-history.com/embed?secret=Z2l0aHViX3BhdF8xMUFFRlRCWEkwMXVoRjBlQ0FKdUh6X1Nxb0pBc3VXcWo4R0JwRktHazhyVHFBUGl0cnh1R2VqbzdnT1V3Mm4zeWNLVFdORFdBWEJzV3doWnFz#&Date" frameBorder="0"></iframe>
+
+
 > 最新动态请关注[C/C++系统开发飞书文档汇总](https://ym9omojhd5.feishu.cn/docx/CO06d9i6golR7ZxOdHbcwUWOnke)
 # 系统开发笔记
 ## 基础知识
@@ -9,6 +10,8 @@
 5. [计算机网络](./Basic/计算机网络.md)
 6. [项目](https://github.com/SYaoJun/cpp_in_action)
 7. [系统设计](./Basic/系统设计.md)
+## Star History
+[![Star History Chart](https://api.star-history.com/svg?repos=&type=Date)](https://star-history.com/)
 
 ## 笔试题
 1.  模拟 ★★★★★ 可难可易 大部分题都是模拟中使用某个算法优化
