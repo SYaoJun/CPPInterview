@@ -8,10 +8,14 @@
 - 测试
   - junit
   - mockito
-### 常用命令
+### Linux环境编译命令
 ```shell
 # 编译器
 javac hello.java
 # 解释器
 java hello
+```
+### 语言差异
+```java
+int[][] array = new int[100][100];
 ```

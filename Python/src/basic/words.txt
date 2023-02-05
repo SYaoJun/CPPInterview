@@ -1,5 +1,0 @@
- day  sunny  
- sunny  
-# hello world
-
-#you hao hello
