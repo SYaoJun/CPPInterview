@@ -4,7 +4,7 @@
 * [编程语言](C++/README.md)
     * [C++](C++/CPPBasic.md)
     * [Java](Java/Java_Basic.md)
-* [计算机基础知识](Basic/README.md)
+* [计算机基础知识](C++/README.md)
     * [数据结构与算法](C++/CPPBasic.md)
     * [操作系统](Basic/操作系统.md)
     * [计算机网络](Basic/计算机网络.md)
