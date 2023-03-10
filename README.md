@@ -1,5 +1,5 @@
 # 系统开发笔记
-[在线电子版：C/C++系统开发面试手册](https://syaojun.github.io/CPPInterview/)
+[在线电子版：C/C++系统开发面试手册](https://yaojun.gitbook.io/cppinterview/)
 ## 基础知识
 1. 编程语言([C++](./C++)、[Java](./Java)、[Go](./Go))
 2. [数据结构与算法](./DS)
