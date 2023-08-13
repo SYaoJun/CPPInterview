@@ -67,3 +67,11 @@
 1. [PAT系统](https://pintia.cn/problem-sets/15/problems/type/7)
 2. [LeetCode](https://leetcode.cn/problemset/all/)
 3. [AcWing](www.acwing.com)
+
+-------------------------------------
+## 六、我当面试官常问的面试问题（数据库内核开发岗）
+- 内核态和用户态有什么区别？从这两个视角，描述一下调用fwrite写入数据到磁盘的整个过程用户态和内核态做了什么事情？
+- B+树和哈希表的区别？B+树和LSM-Tree的区别及应用场景？
+- 操作系统中使用页表机制有什么好处？解决了什么问题？
+- Postgres数据库是使用什么方式保证的ACID特性？
+- Hash join的执行流程和实现细节？
