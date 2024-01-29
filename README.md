@@ -12,14 +12,13 @@
 
 ### 1. 基础知识
 
-1. [C++编程语言](./C++/CPP.md)
-2. [数据结构与算法](./DS)
-3. [操作系统](./OS)
-4. [数据库](./DB)
-5. [计算机网络](./Net)
-6. 分布式系统
-7. 项目
-8. 系统设计
+1. [C++编程语言](C++/README.md)
+2. [数据结构与算法](DS/README.md)
+3. [操作系统](OS/README.md)
+4. [数据库](DB/README.md)
+5. [计算机网络](Net/README.md)
+6. [分布式系统](distributed_system/README.md)
+7. [项目](projects/README.md)
 
 ## 二、笔试篇
 

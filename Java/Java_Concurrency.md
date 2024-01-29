@@ -213,8 +213,6 @@ CyclicBarrier：加法计数器
 Semaphore：信号量 限流
 SynchronousQueue：同步队列，最多放一个元素
 
-
-
 ### List线程不安全
 
 - 如何改为线程安全的呢？

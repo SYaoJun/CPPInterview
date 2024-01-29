@@ -1,6 +1,5 @@
 # Redis
-- C语言编写的基于内存可持久化的key-value内存数据库，使用的是epoll单线程模型
-- 键值对数据库服务器
+- C语言编写的基于内存可持久化的key-value内存数据库。
 ## 理论篇
 ### 参考视频
 - [黑马程序员2022Redis](https://www.bilibili.com/video/BV1cr4y1671t?p=99&vd_source=e9f1ced96b267a4bc02ec41ca31d850a)
