@@ -3,7 +3,3 @@
 2. MIT6.824
 3. TinyKV
 4. TinySQL
-5. bitcask
-6. rpc
-7. raft
-8. mini-lsm
