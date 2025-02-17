@@ -72,3 +72,5 @@
 2. [LeetCode](https://leetcode.cn/problemset/all/)
 3. [AcWing](www.acwing.com)
 
+## 如何准备Leetcode面试算法题
+[知乎](https://zhuanlan.zhihu.com/p/349940945)
