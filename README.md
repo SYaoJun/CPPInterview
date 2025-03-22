@@ -4,73 +4,150 @@
 <a href="https://www.zhihu.com/people/wan-yi-er-89" target="_blank"><img src="https://img.shields.io/badge/%E7%9F%A5%E4%B9%8E-@姚军-000000.svg?style=flat-square&logo=Zhihu"></a>
 
 </p>
+# C/C++基础面试问题
+## 类中成员函数有两个`void hello()`和`void hello() const`，怎么在调用是区分调的哪一个？
+根据创建的实例对象而决定，如果实例对象是const则自动调第二个，如果非const调用第一个。
 
-# C/C++系统开发
+## 析构函数是否可以重载？析构函数是否可以是虚函数？如果不是虚函数会产生什么问题？举个例子
+析构函数不可以重载。
+析构函数不重载，可能导致父类资源无法释放。
+构造函数的调用顺序是，先构造父类，再构造子类。析构函数的顺序是反过来的，先析构子类，再析构父类。
+```c++
+#include <iostream>
 
+class Base {
+public:
+    Base() {
+        std::cout << "Base constructor called." << std::endl;
+    }
 
-### 基础知识
-- [C语言](C/README.md)
-- [C++编程语言](C++/README.md)
-- [数据结构与算法](DataStructure/README.md)
-- [操作系统](OperatingSystem/README.md)
--  [数据库](Database/README.md)
--  [计算机网络](ComputerNetwork/README.md)
--  [分布式系统](DistributedSystem/README.md)
--  [项目](Project/README.md)
+    // 注意：这里没有将析构函数声明为虚函数
+    ~Base() {
+        std::cout << "Base destructor called." << std::endl;
+    }
+};
 
+class Derived : public Base {
+public:
+    Derived() {
+        std::cout << "Derived constructor called." << std::endl;
+    }
 
+    ~Derived() {
+        std::cout << "Derived destructor called." << std::endl;
+    }
+};
 
-### 高频算法类型
+int main() {
+    Base* ptr = new Derived();  // 创建一个Derived对象，并用Base指针指向它
+    delete ptr;  // 通过基类指针删除对象
 
-1.  模拟 ★★★★★ 可难可易 大部分题都是模拟中使用某个算法优化
-2.  贪心 ★★★ 按照某种规则排序
-3.  字符串 ★★★ 输入输出容易搞人 双指针处理字符串空格单词
-4.  DFS/BFS ★★★ 有多少种组合数 图的最短时间
-5.  滑动窗口/双指针 ★★ 最短或最长的子串 最多可变 k 次
-6.  DP ★★ 看运气 背包问题居多 遍历时维护最值
-7.  堆 ★★ 学会自定义数据的排序规则
-8.  并查集 ★★ 寻找连通分量和最大集合数量
-9.  找规律/数学 ★ 看运气
-10. 前缀和 ★ 子数组范围较小时直接用
-11. 二分法 ★ 灵活运用库函数 lower_bound 和 upper_bound
-12. 单调栈 ★ 通常跟数组有关
-13. 迪杰斯特拉算法/弗洛伊德 ★ 通常不考
-14. 字典树 ★ 出现前缀字符串查询或者异或值直接用
-15. 高精度 ★ 大数乘法或大数加法
+    return 0;
+}
+// 如果析构不是虚函数，那么只会释放父类的资源，而泄露了子类的资源
+```
 
-### 笔试技巧
+## 什么场景需要用dynamic_cast？
+如果想要将父类转换为子类，需要父类中至少有一个虚函数，dynmic_cast依赖于运行时类型信息（RTTI），因此需要虚函数的存在。
+```c++
 
-1. 数值较大的结果考虑用 long long
-2. 动态规划写不来，先写暴力过部分测试样例
-3. 特殊输出先提交一下，骗点分了再说
-4. 练习处理诡异输入的能力
+## #include <iostream>
+#include <exception>
 
-## 书单
+class Base {
+public:
+    virtual ~Base() {}  // 基类需要至少一个虚函数（通常是析构函数），以支持RTTI
+};
 
-### C++
--   《C++ Primer》第五版
--   《后台开发: 核心技术与应用实践》 徐晓鑫
-### 计算机系统基础
--   《深入理解计算机系统》第三版
--   《Linux 高性能服务器编程》 游双
--   《数据库系统概念》第七版
+class Derived1 : public Base {
+public:
+    void derived1Function() {
+        std::cout << "Derived1 function called." << std::endl;
+    }
+};
 
-### 算法
--   《剑指 offer》何海涛
--   《程序员面试指南》左程云
+class Derived2 : public Base {
+public:
+    void derived2Function() {
+        std::cout << "Derived2 function called." << std::endl;
+    }
+};
 
-## 计算机优质课程
+int main() {
+    Base* basePtr1 = new Derived1();
+    Base* basePtr2 = new Derived2();
 
--   《操作系统》[蒋炎岩](https://www.bilibili.com/video/BV1N741177F5)
--   《数据结构与算法》 [陈越](https://www.bilibili.com/video/BV1H4411N7oD/?spm_id_from=333.337.search-card.all.click&vd_source=e9f1ced96b267a4bc02ec41ca31d850a)
--   《设计模式》[李建忠](https://www.bilibili.com/video/BV1Eb4y1m7Uj?from=search&seid=8468035381340447890)
--   《深入理解计算机系统》[yaaangmin](https://space.bilibili.com/4564101)
+    // 尝试将 basePtr1 转换为 Derived1*
+    Derived1* derivedPtr1 = dynamic_cast<Derived1*>(basePtr1);
+    if (derivedPtr1) {
+        derivedPtr1->derived1Function();
+    } else {
+        std::cout << "Conversion to Derived1 failed." << std::endl;
+    }
 
-## 刷题网站
+    // 尝试将 basePtr2 转换为 Derived1*（应该失败）
+    Derived1* derivedPtr2 = dynamic_cast<Derived1*>(basePtr2);
+    if (derivedPtr2) {
+        derivedPtr2->derived1Function();
+    } else {
+        std::cout << "Conversion to Derived1 failed (as expected)." << std::endl;
+    }
 
-1. [PAT 系统](https://pintia.cn/problem-sets/15/problems/type/7)
-2. [LeetCode](https://leetcode.cn/problemset/all/)
-3. [AcWing](www.acwing.com)
+    // 清理内存
+    delete basePtr1;
+    delete basePtr2;
 
-## 如何准备Leetcode面试算法题
-[知乎](https://zhuanlan.zhihu.com/p/349940945)
+    return 0;
+}
+```
+
+## 什么是柔性数组？有什么用处？
+
+## 什么是大小端？如何用代码判断大小端？
+
+## 如何定位内存泄露问题？
+
+## 如何使用perf分析程序性能？
+
+## C/C++内存模型
+
+## 什么是内存对齐？为什么内存要对齐？
+
+## 提高C/C++程序性能的技巧？
+
+## C/C++互相调用通常在头文件中做什么处理？
+
+## static在类成员变量和类成员函数中有什么作用？
+静态成员函数只能访问静态成员变量。静态成员变量在所有对象中共享。
+## 如何实现类的单例模式？
+
+## 如何判断链表是否有环？如何找到链表的中点？如何对链表排序？如何对二叉树做层序遍历？给定四个坐标如何判断是否是正方形？
+
+## 如何提高TLB缓存命中率？
+
+## 什么时候需要用虚函数？
+
+## 什么时候需要用智能指针？
+想要malloc和new时，不用显式分配内存和管理内存，就可以使用智能指针。
+
+## 移动语义与完美转发
+
+## C++20协程
+
+## 源文件生成可执行文件的过程
+
+## 内存管理？如何避免内存碎片？
+
+## 线程上下文切换会做哪些工作？
+
+## 虚拟地址空间到物理地址空间的流程说一下
+
+## 如何减小锁的粒度？如何避免死锁？
+
+## 如何保证程序是线程安全的？
+
+## 如何实现一个线程安全的延迟队列？
+
+## 如何实现原子操作CAS
+
+## 你技术上最大的优势是什么？你最擅长什么技术？C/C++功能实现，算法与数据结构，linux内核，操作系统，还是协作沟通，英语等？
